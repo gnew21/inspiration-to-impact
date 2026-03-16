@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 4: Scale, Sustainability & Exit — Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE; --dark: #1A1A1A; --charcoal: #2D2D2D;
+    --border: rgba(26,26,26,0.1);
+    --phase: #8B5E3C; --phase-light: rgba(139,94,60,0.07); --phase-mid: rgba(139,94,60,0.16);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+  nav { position: sticky; top: 0; z-index: 100; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(247,243,238,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-back { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); font-size: 13px; font-weight: 500; opacity: 0.6; transition: opacity 0.2s; }
+  .nav-back:hover { opacity: 1; }
+  .nav-phase { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--phase); }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; opacity: 0.5; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .hero { padding: 80px 48px 72px; background: var(--dark); position: relative; overflow: hidden; }
+  .hero::before { content: '04'; position: absolute; right: -20px; top: -40px; font-family: 'DM Serif Display', serif; font-size: 320px; color: rgba(139,94,60,0.08); line-height: 1; pointer-events: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phase); margin-bottom: 20px; }
+  .hero-badge::before { content: ''; display: block; width: 24px; height: 1px; background: var(--phase); }
+  .hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(38px,6vw,72px); line-height: 1.0; color: #F7F3EE; margin-bottom: 24px; max-width: 700px; }
+  .hero-title em { font-style: italic; color: var(--phase); }
+  .hero-subtitle { font-size: 17px; font-weight: 300; line-height: 1.7; color: rgba(247,243,238,0.65); max-width: 560px; margin-bottom: 48px; }
+  .hero-meta { display: flex; gap: 48px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
+  .meta-val { font-family: 'DM Serif Display', serif; font-size: 28px; color: #F7F3EE; }
+  .meta-label { font-size: 12px; font-weight: 300; color: rgba(247,243,238,0.45); margin-top: 4px; }
+  .ecosystems { background: var(--phase); padding: 40px 48px; display: flex; gap: 0; overflow-x: auto; }
+  .eco-item { flex: 1; min-width: 180px; padding: 0 32px; border-right: 1px solid rgba(255,255,255,0.2); color: white; }
+  .eco-item:first-child { padding-left: 0; }
+  .eco-item:last-child { border-right: none; }
+  .eco-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; }
+  .eco-name { font-family: 'DM Serif Display', serif; font-size: 18px; line-height: 1.2; }
+  .page-body { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  .sidebar { background: white; border-right: 1px solid var(--border); padding: 48px 32px; position: sticky; top: 57px; height: calc(100vh - 57px); overflow-y: auto; }
+  .sidebar-heading { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--charcoal); opacity: 0.4; margin-bottom: 20px; }
+  .sidebar-nav { list-style: none; }
+  .sidebar-nav li { margin-bottom: 2px; }
+  .sidebar-nav a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; font-weight: 400; color: var(--charcoal); transition: background 0.15s, color 0.15s; }
+  .sidebar-nav a:hover { background: var(--phase-light); color: var(--phase); }
+  .sidebar-nav a.active { background: var(--phase-mid); color: var(--phase); font-weight: 500; }
+  .step-num { font-size: 11px; opacity: 0.4; width: 18px; flex-shrink: 0; }
+  .sidebar-divider { height: 1px; background: var(--border); margin: 20px 0; }
+  .phase-link { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 400; color: var(--charcoal); opacity: 0.55; transition: opacity 0.2s; }
+  .phase-link:hover { opacity: 1; }
+  .phase-link-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .main { padding: 64px 64px 120px; max-width: 900px; }
+  .step-section { margin-bottom: 80px; scroll-margin-top: 80px; }
+  .step-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .step-num-badge { width: 36px; height: 36px; border-radius: 50%; background: var(--phase); color: white; font-family: 'DM Serif Display', serif; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-category { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--phase); }
+  .step-title { font-family: 'DM Serif Display', serif; font-size: clamp(22px,2.5vw,32px); line-height: 1.1; margin-bottom: 16px; }
+  .step-intro { font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--charcoal); margin-bottom: 32px; opacity: 0.85; }
+  .step-intro strong { font-weight: 500; color: var(--dark); }
+  .task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 32px; }
+  .task-card { background: white; border: 1px solid var(--border); padding: 28px; border-radius: 4px; }
+  .task-card-title { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
+  .task-check { width: 20px; height: 20px; border: 1.5px solid var(--phase); border-radius: 4px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .task-check.done { background: var(--phase); }
+  .task-check.done::after { content: '✓'; color: white; font-size: 11px; }
+  .task-body { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--charcoal); opacity: 0.8; padding-left: 30px; }
+  .substep-list { list-style: none; margin-bottom: 32px; }
+  .substep-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .substep-item:last-child { border-bottom: none; }
+  .substep-marker { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--phase); color: var(--phase); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .substep-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .substep-text { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--charcoal); opacity: 0.8; }
+  .substep-text strong { font-weight: 500; color: var(--dark); }
+  .callout { border-left: 3px solid var(--phase); background: var(--phase-light); padding: 20px 24px; border-radius: 0 4px 4px 0; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phase); margin-bottom: 8px; }
+  .callout-text { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--charcoal); }
+  .callout.warn { border-color: #C05353; background: rgba(192,83,83,0.06); }
+  .callout.warn .callout-label { color: #C05353; }
+  .callout.success { border-color: #6B8C6B; background: rgba(107,140,107,0.07); }
+  .callout.success .callout-label { color: #4A6741; }
+  .role-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+  .role-table th { text-align: left; padding: 10px 16px; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); opacity: 0.4; border-bottom: 1px solid var(--border); }
+  .role-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; font-weight: 300; line-height: 1.5; color: var(--charcoal); }
+  .role-table tr:last-child td { border-bottom: none; }
+  .role-name { font-weight: 500; color: var(--dark); }
+  .path-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 32px; }
+  .path-card { background: white; border: 1px solid var(--border); padding: 28px; border-radius: 4px; }
+  .path-icon { font-size: 28px; margin-bottom: 12px; }
+  .path-title { font-family: 'DM Serif Display', serif; font-size: 20px; margin-bottom: 8px; }
+  .path-text { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--charcoal); opacity: 0.8; margin-bottom: 14px; }
+  .path-items { list-style: none; }
+  .path-items li { font-size: 13px; font-weight: 300; line-height: 1.5; color: var(--charcoal); opacity: 0.75; padding: 5px 0; padding-left: 14px; position: relative; border-bottom: 1px solid var(--border); }
+  .path-items li:last-child { border-bottom: none; }
+  .path-items li::before { content: '—'; position: absolute; left: 0; opacity: 0.35; }
+  .flow-back { background: var(--dark); padding: 48px; border-radius: 4px; margin-bottom: 32px; color: white; }
+  .flow-back h3 { font-family: 'DM Serif Display', serif; font-size: 24px; margin-bottom: 20px; color: #F7F3EE; }
+  .flow-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+  .flow-from { font-size: 13px; font-weight: 500; color: rgba(247,243,238,0.9); background: rgba(255,255,255,0.08); padding: 10px 16px; border-radius: 4px; white-space: nowrap; }
+  .flow-arrow { font-size: 14px; opacity: 0.4; flex-shrink: 0; }
+  .flow-to { font-size: 13px; font-weight: 300; color: rgba(247,243,238,0.7); }
+  .metrics-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 32px; }
+  .metric-card { background: white; border: 1px solid var(--border); padding: 24px; border-radius: 4px; }
+  .metric-val { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--phase); line-height: 1; margin-bottom: 8px; }
+  .metric-label { font-size: 12px; font-weight: 400; color: var(--charcoal); opacity: 0.7; line-height: 1.4; }
+  .complete-banner { background: linear-gradient(135deg, var(--phase) 0%, #5B3520 100%); color: white; padding: 64px 48px; border-radius: 4px; margin-top: 80px; text-align: center; }
+  .complete-banner h3 { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 16px; }
+  .complete-banner p { font-size: 17px; font-weight: 300; line-height: 1.7; opacity: 0.8; max-width: 560px; margin: 0 auto 36px; }
+  .banner-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .banner-link { background: rgba(255,255,255,0.15); color: white; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: 500; border: 1px solid rgba(255,255,255,0.2); transition: background 0.2s; }
+  .banner-link:hover { background: rgba(255,255,255,0.25); }
+  .banner-link.primary { background: white; color: var(--phase); border-color: white; }
+  .banner-link.primary:hover { background: rgba(255,255,255,0.9); }
+  @media(max-width:900px){ nav { padding: 14px 20px; } .hero { padding: 60px 24px 48px; } .ecosystems { padding: 32px 24px; } .page-body { grid-template-columns: 1fr; } .sidebar { display: none; } .main { padding: 40px 24px 80px; } .task-grid, .path-grid { grid-template-columns: 1fr; } .metrics-row { grid-template-columns: 1fr 1fr; } .complete-banner { padding: 40px 24px; } .flow-back { padding: 32px 24px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-back" href="index.html"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg> Back to Overview</a>
+  <span class="nav-phase">Phase 4 — Setup Guide</span>
+  <ul class="nav-links">
+    <li><a href="phase-1.html">Phase 1</a></li><li><a href="phase-2.html">Phase 2</a></li><li><a href="phase-3.html">Phase 3</a></li><li><a href="phase-4.html">Phase 4</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Phase 04</div>
+  <h1 class="hero-title">Scale, Sustainability<br><em>& Exit</em></h1>
+  <p class="hero-subtitle">Ventures operate fully independently. Value created flows back to TYIF ethically. Failure is an accepted outcome. What matters is that everything that was built — succeeds or closes — strengthens the ecosystem it came from.</p>
+  <div class="hero-meta">
+    <div><div class="meta-val">Fully independent</div><div class="meta-label">No connection to TYIF programs</div></div>
+    <div><div class="meta-val">4 pathways</div><div class="meta-label">Profit, growth, acquisition, or closure</div></div>
+    <div><div class="meta-val">Value flows</div><div class="meta-label">Back to TYIF via TCII mechanisms</div></div>
+    <div><div class="meta-val">Ongoing</div><div class="meta-label">No fixed end — ventures run their own course</div></div>
+  </div>
+</section>
+
+<div class="ecosystems">
+  <div class="eco-item"><div class="eco-label">Ecosystem 1</div><div class="eco-name">Independent Ventures</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 2</div><div class="eco-name">TCII (advisory & equity holder)</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 3</div><div class="eco-name">TYIF (beneficiary, not operator)</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 4</div><div class="eco-name">Market, Investors, Partners</div></div>
+</div>
+
+<div class="page-body">
+  <aside class="sidebar">
+    <p class="sidebar-heading">Setup Steps</p>
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li><a href="#step-1"><span class="step-num">1</span> Independence Checklist</a></li>
+      <li><a href="#step-2"><span class="step-num">2</span> TCII Transition to Advisory</a></li>
+      <li><a href="#step-3"><span class="step-num">3</span> Value Flow Mechanisms</a></li>
+      <li><a href="#step-4"><span class="step-num">4</span> TYIF Reporting Structure</a></li>
+      <li><a href="#step-5"><span class="step-num">5</span> Venture Growth Pathways</a></li>
+      <li><a href="#step-6"><span class="step-num">6</span> Managing Failure Gracefully</a></li>
+      <li><a href="#step-7"><span class="step-num">7</span> Exit Planning</a></li>
+      <li><a href="#step-8"><span class="step-num">8</span> The Flywheel Effect</a></li>
+    </ul>
+    <div class="sidebar-divider"></div>
+    <p class="sidebar-heading">All Phases</p>
+    <div>
+      <a class="phase-link" href="phase-1.html"><span class="phase-link-dot" style="background:#5B7FA6"></span> Phase 1 — Idea Space</a>
+      <a class="phase-link" href="phase-2.html"><span class="phase-link-dot" style="background:#6B8C6B"></span> Phase 2 — Innovation Lab</a>
+      <a class="phase-link" href="phase-3.html"><span class="phase-link-dot" style="background:#C9A84C"></span> Phase 3 — Venture Pathway</a>
+      <a class="phase-link" href="phase-4.html"><span class="phase-link-dot" style="background:#8B5E3C"></span> Phase 4 — Scale & Exit</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- STEP 1 -->
+    <section class="step-section" id="step-1">
+      <div class="step-eyebrow"><div class="step-num-badge">1</div><span class="step-category">Independence</span></div>
+      <h2 class="step-title">Complete the Independence Checklist Before Phase 4 Begins</h2>
+      <p class="step-intro">Phase 4 does not begin on a calendar date — it begins when a venture has genuinely reached operational independence. <strong>Every item on this checklist must be confirmed before TCII transitions from active support to advisory role.</strong></p>
+
+      <div class="task-grid">
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Legal entity is fully operational</div>
+          <div class="task-body">Company incorporated, ACN/ABN active, bank account operational, ASIC lodgements up to date, Shareholders Agreement signed by all parties, IP assigned correctly.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Board is functioning</div>
+          <div class="task-body">Board meeting cadence established (quarterly minimum), minutes kept from Day 1, board roles clearly defined, and at least one director independent of the founding team.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> First commercial revenue or partnership confirmed</div>
+          <div class="task-body">At least one paying customer, signed partnership, or revenue-generating agreement in place. This is non-negotiable — the venture must have demonstrated real market demand before moving fully independent.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Financial controls established</div>
+          <div class="task-body">Bookkeeping system active (Xero or equivalent), monthly P&L reviewed by the board, basic cash flow forecast maintained for 6 months forward, accountant engaged for tax obligations.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Operational systems in place</div>
+          <div class="task-body">The venture can operate day-to-day without TCII's active involvement. Founders know their roles, key processes are documented, and the team is not dependent on TCII staff to function.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Value flow mechanism documented and agreed</div>
+          <div class="task-body">The pre-agreed mechanism for value to flow back to TYIF via TCII is formally documented and understood by all parties. This is in writing — not a handshake or verbal understanding.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> TCII's ongoing role formally defined</div>
+          <div class="task-body">TCII's role in Phase 4 (advisory, board observer, or passive equity holder) is documented. Frequency of contact, reporting obligations, and circumstances for re-engagement are clearly defined.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> TYIF relationship formally concluded</div>
+          <div class="task-body">TYIF and the founders agree in writing that the venture is fully independent and no longer operating within TYIF's program or participant environment. This closes the formal TYIF relationship cleanly.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step-section" id="step-2">
+      <div class="step-eyebrow"><div class="step-num-badge">2</div><span class="step-category">TCII Role Shift</span></div>
+      <h2 class="step-title">Transition TCII from Active Support to Advisory Partner</h2>
+      <p class="step-intro">TCII's role evolves significantly in Phase 4. The intensive hands-on support of Phase 3 is no longer appropriate — founders must own the decisions. TCII becomes a <strong>minority equity holder and available advisor</strong>, not an operator.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Define TCII's board position clearly</div>
+            <div class="substep-text">TCII holds a board observer seat (or a single non-executive director seat) — never a controlling position. TCII's representative attends all board meetings, contributes strategic perspective, and receives all board papers. They do not have veto rights, and they do not vote on ordinary resolutions. Their role is guidance, not governance.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Establish a quarterly strategic touchpoint</div>
+            <div class="substep-text">Once per quarter, a TCII representative meets with the founding team for a 60-minute strategic review. This is not a status update — it is a structured conversation about: growth trajectory, capital position, key risks, and whether TCII can add value in any specific area. TCII is proactive, not reactive.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Make TCII's network actively available</div>
+            <div class="substep-text">One of TCII's highest-value contributions in Phase 4 is warm introductions — to potential customers, strategic partners, investors, and talent. TCII should proactively identify relevant connections for each venture and make introductions without waiting to be asked. This is a core part of TCII's value.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Define triggers for re-engagement</div>
+            <div class="substep-text">Document the specific circumstances under which TCII would re-engage more actively: a significant pivot, a co-founder departure, a major legal or financial challenge, a fundraising round, or an acquisition conversation. Having these written removes ambiguity and ensures TCII can step in quickly when genuinely needed.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step-section" id="step-3">
+      <div class="step-eyebrow"><div class="step-num-badge">3</div><span class="step-category">Value Flow</span></div>
+      <h2 class="step-title">Activate the Value Flow Mechanisms to TYIF</h2>
+      <p class="step-intro">This is the closing loop of the entire model. Value generated by successful ventures flows back to TYIF through TCII — strengthening the organisation that made those ideas possible. <strong>Every mechanism must be documented, transparent, and governed.</strong></p>
+
+      <div class="flow-back">
+        <h3>How value flows back to TYIF</h3>
+        <div class="flow-row">
+          <div class="flow-from">Venture dividends</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-to">TCII receives its proportional share of any dividends declared by ventures in which it holds equity</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-from">Exit proceeds</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-to">On acquisition or IPO, TCII realises value from its equity stake. A pre-agreed proportion flows to TYIF as grants or endowment</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-from">TCII surplus</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-to">TCII's operating surplus (beyond what's needed to sustain and grow TCII's capacity) is allocated to TYIF as program grants</div>
+        </div>
+        <div class="flow-row">
+          <div class="flow-from">Strategic partnerships</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-to">Ventures may sponsor TYIF programs, fund camps, or partner on delivery as a strategic business decision — separate from equity flows</div>
+        </div>
+      </div>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Document the reinvestment mandate in the TYIF–TCII agreement</div>
+            <div class="substep-text">The framework agreement must specify: the minimum proportion of TCII's realised proceeds that flows to TYIF, the mechanism (grant, endowment, direct funding), the frequency of transfer (annual, or upon realisation), and the governance process for allocation decisions. Vague language here will create conflict later.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Establish TCII's annual reporting obligation to TYIF</div>
+            <div class="substep-text">TCII provides TYIF with an annual summary of: portfolio venture performance, total value under management, any distributions made, and forecast value over the next 12 months. This is a governance document — TYIF's board should receive it annually. Transparency builds long-term trust between the organisations.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Set realistic timelines for value realisation</div>
+            <div class="substep-text">TYIF should not expect financial returns from Phase 4 ventures in the short term. Early-stage ventures typically take 5–10 years to generate significant returns. The model should be planned with this horizon in mind: TYIF invests in the model now, and benefits over the long term. Set this expectation with TYIF's board and funders explicitly.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step-section" id="step-4">
+      <div class="step-eyebrow"><div class="step-num-badge">4</div><span class="step-category">Governance</span></div>
+      <h2 class="step-title">Establish TYIF's Ongoing Reporting Structure</h2>
+      <p class="step-intro">TYIF is a beneficiary of Phase 4, not an operator. But TYIF's board still needs to understand the system's performance — not to interfere, but to fulfil its governance obligations and to report honestly to funders and stakeholders.</p>
+
+      <table class="role-table">
+        <thead><tr><th>Report</th><th>Produced by</th><th>Received by</th><th>Frequency</th><th>Content</th></tr></thead>
+        <tbody>
+          <tr><td class="role-name">Phase 1 Summary</td><td>Program Lead</td><td>TYIF Leadership</td><td>Quarterly</td><td>Idea submissions, response rates, visible program outcomes</td></tr>
+          <tr><td class="role-name">Phase 2 Lab Update</td><td>Innovation Lab Coordinator</td><td>Review Group</td><td>Monthly / at decision points</td><td>Active pilots, exit decisions, knowledge retained</td></tr>
+          <tr><td class="role-name">Phase 3 Venture Status</td><td>TCII</td><td>TYIF CEO</td><td>Quarterly</td><td>Ventures in formation, support provided, commercial milestones</td></tr>
+          <tr><td class="role-name">TCII Annual Portfolio Report</td><td>TCII Board</td><td>TYIF Board</td><td>Annually</td><td>Portfolio performance, distributions made, forecast value, reinvestment to TYIF</td></tr>
+          <tr><td class="role-name">System-Wide Review</td><td>TYIF + TCII jointly</td><td>Both boards</td><td>Annually</td><td>Full review of all phases, model health, strategic adjustments</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-label">Governance Principle</div>
+        <div class="callout-text">TYIF's board should receive enough information to fulfil its charitable obligations and stakeholder reporting — not so much that it starts making operational decisions about TCII or individual ventures. The boundary between oversight and interference must be maintained.</div>
+      </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step-section" id="step-5">
+      <div class="step-eyebrow"><div class="step-num-badge">5</div><span class="step-category">Growth Pathways</span></div>
+      <h2 class="step-title">Support Ventures Across All Growth Pathways</h2>
+      <p class="step-intro">Phase 4 ventures are not all the same. Some will pursue growth capital, others will run profitably without investors, some will be acquired, and some will close. All of these are legitimate outcomes. <strong>TCII's support must be calibrated to each venture's actual trajectory.</strong></p>
+
+      <div class="path-grid">
+        <div class="path-card">
+          <div class="path-icon">📈</div>
+          <div class="path-title">Sustainable Profitability</div>
+          <div class="path-text">The venture grows from revenue without external capital. Often the best outcome for impact-aligned businesses.</div>
+          <ul class="path-items">
+            <li>Focus on unit economics and gross margin</li>
+            <li>Reinvest operating surplus into growth</li>
+            <li>Build reserves before increasing team size</li>
+            <li>TCII role: quarterly strategy + introductions</li>
+          </ul>
+        </div>
+        <div class="path-card">
+          <div class="path-icon">🚀</div>
+          <div class="path-title">Venture Capital Growth</div>
+          <div class="path-text">For scalable models requiring significant upfront investment to capture market opportunity.</div>
+          <ul class="path-items">
+            <li>TCII prepares investor materials only after traction proven</li>
+            <li>Identify aligned investors — not just available capital</li>
+            <li>Negotiate terms carefully; protect founder control</li>
+            <li>Model TYIF value flow across dilution scenarios</li>
+          </ul>
+        </div>
+        <div class="path-card">
+          <div class="path-icon">🤝</div>
+          <div class="path-title">Strategic Acquisition</div>
+          <div class="path-text">A larger organisation acquires the venture — realising value for founders, TCII, and ultimately TYIF.</div>
+          <ul class="path-items">
+            <li>TCII advises on valuation and deal structure</li>
+            <li>Negotiate post-acquisition obligations carefully</li>
+            <li>Document value flow to TYIF at point of exit</li>
+            <li>Ensure mission alignment in acquirer selection</li>
+          </ul>
+        </div>
+        <div class="path-card">
+          <div class="path-icon">🔒</div>
+          <div class="path-title">Orderly Closure</div>
+          <div class="path-text">The venture closes responsibly. This is an expected and valid outcome — not a failure of the system.</div>
+          <ul class="path-items">
+            <li>Wind down cleanly with legal and financial advice</li>
+            <li>Settle all obligations before distributing assets</li>
+            <li>Document key learnings for TCII and TYIF</li>
+            <li>Celebrate what was built, regardless of outcome</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 6 -->
+    <section class="step-section" id="step-6">
+      <div class="step-eyebrow"><div class="step-num-badge">6</div><span class="step-category">Failure</span></div>
+      <h2 class="step-title">Manage Failure Gracefully and Extract Its Value</h2>
+      <p class="step-intro">Failure is not an edge case — it is a statistically likely outcome for early-stage ventures. The model must treat failure as a first-class outcome, not a shameful exception. <strong>How TYIF and TCII respond to failure will define whether young people trust the system over the long term.</strong></p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Define "failure" clearly — it is not the same as "closed"</div>
+            <div class="substep-text">A venture that closes after running for 3 years, serving real customers, generating revenue, and developing its founders — is not a failure. A failure is a venture that closes without learning, leaves people worse off, or creates legal or reputational damage. TYIF and TCII should differentiate these clearly in all communications.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Create a structured closure protocol</div>
+            <div class="substep-text">When a venture chooses to close: (1) Notify TCII and TYIF in advance. (2) Engage a commercial lawyer to manage wind-down obligations. (3) Settle all creditor, employee, and tax obligations. (4) Document final learnings. (5) Communicate honestly with customers and stakeholders. (6) Hold a debrief with TCII within 60 days of closure.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Extract and redistribute the learning</div>
+            <div class="substep-text">Every closed venture produces a closure debrief that TCII files and shares (anonymised, with founder consent) with the broader ecosystem. What market assumption was wrong? What would the founders do differently? What did the venture teach about the problem it tried to solve? This learning strengthens future Phase 2 pilots and Phase 3 ventures.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Support founders personally through closure</div>
+            <div class="substep-text">Closing a company is one of the most difficult experiences a founder faces. TCII should proactively check in with founders after closure — not to assess the venture, but to support the people. A conversation, a connection to a new opportunity, or simply acknowledgement that the effort was real and valuable. This is how TCII earns long-term trust.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="callout success">
+        <div class="callout-label">Reframe for the ecosystem</div>
+        <div class="callout-text">Founders who close a company responsibly and return to TYIF's broader network as experienced, commercially literate leaders are one of the most powerful outcomes of the entire system. They mentor Phase 1 participants, advise Phase 2 pilots, and model what leadership actually looks like.</div>
+      </div>
+    </section>
+
+    <!-- STEP 7 -->
+    <section class="step-section" id="step-7">
+      <div class="step-eyebrow"><div class="step-num-badge">7</div><span class="step-category">Exit Planning</span></div>
+      <h2 class="step-title">Plan for Exit Scenarios from Day One</h2>
+      <p class="step-intro">Exit planning is not morbid — it is responsible. A venture that has never discussed exit scenarios is not prepared for the decisions that will arise when an acquisition offer comes, when a co-founder wants to leave, or when investors push for a liquidity event. <strong>TCII should initiate exit scenario planning within 12–18 months of Phase 4 launch.</strong></p>
+
+      <div class="task-grid">
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Map the founder exit provisions in the SHA</div>
+          <div class="task-body">The Shareholders Agreement should already contain: drag-along and tag-along rights, right of first refusal on share transfers, leaver provisions (good and bad leaver clauses), and a pre-agreed valuation mechanism or process for resolving disputes.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Model value flows at exit for all parties</div>
+          <div class="task-body">Run a simple financial model at 3–4 hypothetical exit valuations (e.g. $2M, $5M, $15M, $50M). Show each party's return: founders, TCII, and the resulting flow to TYIF. This makes the model tangible and builds shared understanding before any pressure arises.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Define strategic acquirer categories</div>
+          <div class="task-body">Identify the types of organisations that might be natural acquirers of this venture: strategic corporates, not-for-profits, private equity, or other founders. Having a rough list prepared means founders are not starting from zero when an approach is made.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Align founders on exit philosophy early</div>
+          <div class="task-body">Co-founders often have very different views on what a "good" exit looks like. Surface these differences early, in a structured conversation facilitated by TCII — while the relationships are strong and there is no live deal on the table. Misalignment discovered during a deal is far more damaging.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 8 -->
+    <section class="step-section" id="step-8">
+      <div class="step-eyebrow"><div class="step-num-badge">8</div><span class="step-category">The Flywheel</span></div>
+      <h2 class="step-title">Build the Flywheel That Makes the System Self-Reinforcing</h2>
+      <p class="step-intro">Phase 4 is not the end of the model — it is the stage where the model becomes self-reinforcing. Successful ventures, returned value, experienced founders, and visible proof all feed back into Phases 1 and 2, making the entire system stronger and more credible over time.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Route returned value directly into TYIF program investment</div>
+            <div class="substep-text">When TYIF receives its first financial return from the system — however small — make it visible. Announce that new program funding, a new camp, or a new staff role was made possible by the reinvestment from a venture that started as a young person's idea. This is the most powerful story the model can tell.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Bring Phase 4 founders back as mentors and advisors</div>
+            <div class="substep-text">Founders who have been through the full system — whether they succeeded or closed — are the most credible possible advocates for Phase 1 and Phase 2. Invite them to speak at TYIF programs, facilitate idea sessions, advise Innovation Lab pilots, and sit on TCII's advisory panel. Their presence makes the model real for every new participant.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Publish an annual system impact report</div>
+            <div class="substep-text">Each year, TYIF and TCII jointly produce a brief public-facing impact report: total ideas submitted in Phase 1, Phase 2 pilots run, Phase 3 ventures launched, Phase 4 ventures operating, financial value returned to TYIF, and stories from the founders who built something. This report builds public trust, supports fundraising, and attracts the next generation of participants.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Use system performance data to improve each phase</div>
+            <div class="substep-text">The annual system-wide review is the mechanism for continuous improvement. What types of Phase 1 ideas tend to progress? What pilot designs work best in Phase 2? What venture structures are most successful in Phase 3? These patterns should actively inform how each phase is designed and refined year on year.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="metrics-row">
+        <div class="metric-card"><div class="metric-val">Year 5+</div><div class="metric-label">Realistic horizon for first significant financial returns to TYIF</div></div>
+        <div class="metric-card"><div class="metric-val">Annual</div><div class="metric-label">Cadence for full system-wide review by both boards</div></div>
+        <div class="metric-card"><div class="metric-val">100%</div><div class="metric-label">Closures handled with a structured closure protocol and debrief</div></div>
+        <div class="metric-card"><div class="metric-val">Ongoing</div><div class="metric-label">Alumni engagement from ex-founders into Phase 1 and Phase 2</div></div>
+      </div>
+    </section>
+
+    <!-- COMPLETE BANNER -->
+    <div class="complete-banner">
+      <h3>The system is complete.</h3>
+      <p>Every phase is set up. Every ecosystem is activated. From a young person's first idea in a TYIF program to an independent venture returning value to the organisation that made it possible.</p>
+      <div class="banner-links">
+        <a class="banner-link primary" href="index.html">Return to Overview</a>
+        <a class="banner-link" href="phase-1.html">Phase 1: Idea Space</a>
+        <a class="banner-link" href="phase-2.html">Phase 2: Innovation Lab</a>
+        <a class="banner-link" href="phase-3.html">Phase 3: Venture Pathway</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+<script>
+const sections = document.querySelectorAll('.step-section');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.sidebar-nav a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

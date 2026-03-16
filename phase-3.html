@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 3: External Venture Pathway — Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE; --dark: #1A1A1A; --charcoal: #2D2D2D; --warm-white: #FDFAF6;
+    --border: rgba(26,26,26,0.1);
+    --phase: #C9A84C; --phase-light: rgba(201,168,76,0.08); --phase-mid: rgba(201,168,76,0.18);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+  nav { position: sticky; top: 0; z-index: 100; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(247,243,238,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-back { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; opacity: 0.6; transition: opacity 0.2s; }
+  .nav-back:hover { opacity: 1; }
+  .nav-phase { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--phase); }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; opacity: 0.5; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .hero { padding: 80px 48px 72px; background: var(--dark); position: relative; overflow: hidden; }
+  .hero::before { content: '03'; position: absolute; right: -20px; top: -40px; font-family: 'DM Serif Display', serif; font-size: 320px; color: rgba(201,168,76,0.07); line-height: 1; pointer-events: none; user-select: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phase); margin-bottom: 20px; }
+  .hero-badge::before { content: ''; display: block; width: 24px; height: 1px; background: var(--phase); }
+  .hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(38px,6vw,72px); line-height: 1.0; color: #F7F3EE; margin-bottom: 24px; max-width: 700px; }
+  .hero-title em { font-style: italic; color: var(--phase); }
+  .hero-subtitle { font-size: 17px; font-weight: 300; line-height: 1.7; color: rgba(247,243,238,0.65); max-width: 560px; margin-bottom: 48px; }
+  .hero-meta { display: flex; gap: 48px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
+  .meta-val { font-family: 'DM Serif Display', serif; font-size: 28px; color: #F7F3EE; }
+  .meta-label { font-size: 12px; font-weight: 300; color: rgba(247,243,238,0.45); margin-top: 4px; }
+  .ecosystems { background: var(--phase); padding: 40px 48px; display: flex; gap: 0; overflow-x: auto; }
+  .eco-item { flex: 1; min-width: 180px; padding: 0 32px; border-right: 1px solid rgba(255,255,255,0.2); color: white; }
+  .eco-item:first-child { padding-left: 0; }
+  .eco-item:last-child { border-right: none; }
+  .eco-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; }
+  .eco-name { font-family: 'DM Serif Display', serif; font-size: 18px; line-height: 1.2; }
+  .page-body { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  .sidebar { background: white; border-right: 1px solid var(--border); padding: 48px 32px; position: sticky; top: 57px; height: calc(100vh - 57px); overflow-y: auto; }
+  .sidebar-heading { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--charcoal); opacity: 0.4; margin-bottom: 20px; }
+  .sidebar-nav { list-style: none; }
+  .sidebar-nav li { margin-bottom: 2px; }
+  .sidebar-nav a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; font-weight: 400; color: var(--charcoal); transition: background 0.15s, color 0.15s; }
+  .sidebar-nav a:hover { background: var(--phase-light); color: var(--phase); }
+  .sidebar-nav a.active { background: var(--phase-mid); color: #9a7a30; font-weight: 500; }
+  .step-num { font-size: 11px; opacity: 0.4; width: 18px; flex-shrink: 0; }
+  .sidebar-divider { height: 1px; background: var(--border); margin: 20px 0; }
+  .phase-link { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 400; color: var(--charcoal); opacity: 0.55; transition: opacity 0.2s; }
+  .phase-link:hover { opacity: 1; }
+  .phase-link-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .main { padding: 64px 64px 120px; max-width: 900px; }
+  .step-section { margin-bottom: 80px; scroll-margin-top: 80px; }
+  .step-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .step-num-badge { width: 36px; height: 36px; border-radius: 50%; background: var(--phase); color: white; font-family: 'DM Serif Display', serif; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-category { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #9a7a30; }
+  .step-title { font-family: 'DM Serif Display', serif; font-size: clamp(22px,2.5vw,32px); line-height: 1.1; margin-bottom: 16px; }
+  .step-intro { font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--charcoal); margin-bottom: 32px; opacity: 0.85; }
+  .step-intro strong { font-weight: 500; color: var(--dark); }
+  .task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 32px; }
+  .task-card { background: white; border: 1px solid var(--border); padding: 28px; border-radius: 4px; }
+  .task-card-title { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
+  .task-check { width: 20px; height: 20px; border: 1.5px solid var(--phase); border-radius: 4px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .task-check.done { background: var(--phase); }
+  .task-check.done::after { content: '✓'; color: white; font-size: 11px; }
+  .task-body { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--charcoal); opacity: 0.8; padding-left: 30px; }
+  .substep-list { list-style: none; margin-bottom: 32px; }
+  .substep-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .substep-item:last-child { border-bottom: none; }
+  .substep-marker { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--phase); color: #9a7a30; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .substep-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .substep-text { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--charcoal); opacity: 0.8; }
+  .substep-text strong { font-weight: 500; color: var(--dark); opacity: 1; }
+  .callout { border-left: 3px solid var(--phase); background: var(--phase-light); padding: 20px 24px; border-radius: 0 4px 4px 0; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #9a7a30; margin-bottom: 8px; }
+  .callout-text { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--charcoal); }
+  .callout.warn { border-color: #C05353; background: rgba(192,83,83,0.06); }
+  .callout.warn .callout-label { color: #C05353; }
+  .role-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+  .role-table th { text-align: left; padding: 10px 16px; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); opacity: 0.4; border-bottom: 1px solid var(--border); }
+  .role-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; font-weight: 300; line-height: 1.5; color: var(--charcoal); }
+  .role-table tr:last-child td { border-bottom: none; }
+  .role-name { font-weight: 500; color: var(--dark); }
+  .timeline { margin-bottom: 32px; }
+  .timeline-row { display: flex; gap: 16px; margin-bottom: 2px; }
+  .tl-week { width: 100px; flex-shrink: 0; background: var(--phase); color: white; font-size: 11px; font-weight: 600; padding: 12px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .tl-content { flex: 1; background: white; border: 1px solid var(--border); padding: 14px 20px; border-radius: 4px; }
+  .tl-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .tl-text { font-size: 13px; font-weight: 300; line-height: 1.5; color: var(--charcoal); opacity: 0.75; }
+  .domain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 32px; }
+  .domain-card { background: white; border: 1px solid var(--border); padding: 28px; border-radius: 4px; }
+  .domain-num { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--phase); line-height: 1; margin-bottom: 8px; }
+  .domain-title { font-size: 15px; font-weight: 500; margin-bottom: 10px; }
+  .domain-items { list-style: none; }
+  .domain-items li { font-size: 13px; font-weight: 300; line-height: 1.5; color: var(--charcoal); opacity: 0.75; padding: 4px 0; padding-left: 14px; position: relative; border-bottom: 1px solid var(--border); }
+  .domain-items li:last-child { border-bottom: none; }
+  .domain-items li::before { content: '—'; position: absolute; left: 0; opacity: 0.3; }
+  .next-phase { background: var(--dark); color: #F7F3EE; padding: 48px; border-radius: 4px; margin-top: 80px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+  .next-text .label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.4; margin-bottom: 8px; }
+  .next-text h3 { font-family: 'DM Serif Display', serif; font-size: 28px; color: #F7F3EE; }
+  .next-btn { background: var(--phase); color: white; padding: 14px 28px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: 500; white-space: nowrap; transition: opacity 0.2s; }
+  .next-btn:hover { opacity: 0.85; }
+  @media(max-width:900px){ nav { padding: 14px 20px; } .hero { padding: 60px 24px 48px; } .ecosystems { padding: 32px 24px; } .page-body { grid-template-columns: 1fr; } .sidebar { display: none; } .main { padding: 40px 24px 80px; } .task-grid, .domain-grid { grid-template-columns: 1fr; } .next-phase { flex-direction: column; padding: 32px 24px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-back" href="index.html"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg> Back to Overview</a>
+  <span class="nav-phase">Phase 3 — Setup Guide</span>
+  <ul class="nav-links">
+    <li><a href="phase-1.html">Phase 1</a></li><li><a href="phase-2.html">Phase 2</a></li><li><a href="phase-3.html">Phase 3</a></li><li><a href="phase-4.html">Phase 4</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Phase 03</div>
+  <h1 class="hero-title">External<br><em>Venture Pathway</em></h1>
+  <p class="hero-subtitle">The most deliberate step in the model. A structured, ethical process for the very few projects ready to become independent companies — entirely outside TYIF, through TCII.</p>
+  <div class="hero-meta">
+    <div><div class="meta-val">Outside TYIF</div><div class="meta-label">All activity via TCII as independent entity</div></div>
+    <div><div class="meta-val">Very few</div><div class="meta-label">Only after Phase 2 is formally complete</div></div>
+    <div><div class="meta-val">Opt-in only</div><div class="meta-label">Founders choose this — never assumed</div></div>
+    <div><div class="meta-val">5 domains</div><div class="meta-label">TCII support across formation to market</div></div>
+  </div>
+</section>
+
+<div class="ecosystems">
+  <div class="eco-item"><div class="eco-label">Ecosystem 1</div><div class="eco-name">TCII (Venture Studio)</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 2</div><div class="eco-name">Founders (ex-TYIF participants)</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 3</div><div class="eco-name">Legal & Professional Advisors</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 4</div><div class="eco-name">TYIF (governance oversight only)</div></div>
+</div>
+
+<div class="page-body">
+  <aside class="sidebar">
+    <p class="sidebar-heading">Setup Steps</p>
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li><a href="#step-1"><span class="step-num">1</span> Establish TCII Legally</a></li>
+      <li><a href="#step-2"><span class="step-num">2</span> Design the Transition Process</a></li>
+      <li><a href="#step-3"><span class="step-num">3</span> TCII Assessment of Projects</a></li>
+      <li><a href="#step-4"><span class="step-num">4</span> Company Formation</a></li>
+      <li><a href="#step-5"><span class="step-num">5</span> Equity Structure</a></li>
+      <li><a href="#step-6"><span class="step-num">6</span> TCII Support Activation</a></li>
+      <li><a href="#step-7"><span class="step-num">7</span> Market Readiness</a></li>
+      <li><a href="#step-8"><span class="step-num">8</span> Capital Strategy</a></li>
+    </ul>
+    <div class="sidebar-divider"></div>
+    <p class="sidebar-heading">All Phases</p>
+    <div>
+      <a class="phase-link" href="phase-1.html"><span class="phase-link-dot" style="background:#5B7FA6"></span> Phase 1 — Idea Space</a>
+      <a class="phase-link" href="phase-2.html"><span class="phase-link-dot" style="background:#6B8C6B"></span> Phase 2 — Innovation Lab</a>
+      <a class="phase-link" href="phase-3.html"><span class="phase-link-dot" style="background:#C9A84C"></span> Phase 3 — Venture Pathway</a>
+      <a class="phase-link" href="phase-4.html"><span class="phase-link-dot" style="background:#8B5E3C"></span> Phase 4 — Scale & Exit</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- STEP 1 -->
+    <section class="step-section" id="step-1">
+      <div class="step-eyebrow"><div class="step-num-badge">1</div><span class="step-category">Legal Foundation</span></div>
+      <h2 class="step-title">Establish TCII as an Independent Legal Entity</h2>
+      <p class="step-intro">Before any Phase 3 activity can occur, <strong>TCII must exist as a properly constituted, independent company</strong>. This is not optional and cannot be done informally. TYIF's charitable status, safeguarding obligations, and governance integrity depend on this separation being real, not nominal.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Incorporate TCII as a public company (ACN / ABN)</div>
+            <div class="substep-text">Engage a commercial lawyer to incorporate The Catalytic Impact Institution as a separate public company limited by shares (or an appropriate structure based on legal advice). TCII should have its own: company registration, ABN, bank account, directors, constitution, and governance documents. This is distinct from TYIF in every material way.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Define TCII's directors and governance</div>
+            <div class="substep-text">TCII requires its own board of directors, independent from TYIF's governance. TYIF may have one representative on the TCII board (in an advisory capacity only), but TYIF board members cannot hold operational control of TCII. TCII's board is responsible for all venture-related decisions.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Draft the TYIF–TCII framework agreement</div>
+            <div class="substep-text">A formal agreement between TYIF and TCII must document: the nature of the relationship, the referral pathway from Phase 2, TCII's reinvestment obligations to TYIF, confidentiality, intellectual property, and what happens if either organisation ceases to operate. This document is reviewed by independent legal counsel for both parties.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Register TCII's charitable or social purpose (if applicable)</div>
+            <div class="substep-text">Depending on TCII's structure and mission framing, it may be appropriate to register as a social enterprise or obtain DGR status. Get legal advice on whether this strengthens or complicates TCII's position. The key constraint is that TCII must be able to hold equity in for-profit companies without compromising TYIF's charitable obligations.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="callout warn">
+        <div class="callout-label">Non-Negotiable</div>
+        <div class="callout-text">Phase 3 cannot begin until TCII is legally constituted and the TYIF–TCII framework agreement is signed. Any informal venture development that occurs before this point creates legal, reputational, and governance risk for TYIF.</div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step-section" id="step-2">
+      <div class="step-eyebrow"><div class="step-num-badge">2</div><span class="step-category">Transition</span></div>
+      <h2 class="step-title">Design the Participant-to-Founder Transition</h2>
+      <p class="step-intro">The transition from TYIF participant to TCII-supported founder is one of the most sensitive steps in the entire model. It involves a <strong>fundamental change in relationship, accountability, and identity</strong>. It must be opt-in, documented, and handled with genuine care for the individuals involved.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Confirm all pre-conditions are formally met</div>
+            <div class="substep-text">A checklist must be completed and signed off by both TYIF's Review Group and TCII before any individual is approached: Phase 2 is formally closed and documented, the project cannot or should not continue within TYIF, the individual is no longer an active TYIF program participant, and all participants are adults (or have appropriate guardian consent if under 18).</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Hold a formal transition conversation — separately from any celebration</div>
+            <div class="substep-text">TYIF should hold a dedicated conversation with each individual (not a group presentation) explaining: what Phase 3 is, what TCII does, what it means to become a founder, what rights and obligations come with equity, and what the individual should seek independent legal advice on. This conversation is informational, not promotional. It is documented.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Provide access to independent legal guidance</div>
+            <div class="substep-text">TYIF and TCII should facilitate (not direct) access to an independent lawyer for any individual considering entering Phase 3. Ideally, identify 2–3 suitable law firms in advance. Cover the cost of a 1-hour consultation for each prospective founder — this is a small investment that significantly reduces risk and demonstrates integrity.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Obtain written, informed consent from every participant</div>
+            <div class="substep-text">Each individual must sign a transition consent form confirming: they understand the change in relationship from program participant to independent founder, they have had the opportunity to seek independent legal advice, they are opting in voluntarily, and they understand TCII's role, equity model, and what is expected of them going forward.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step-section" id="step-3">
+      <div class="step-eyebrow"><div class="step-num-badge">3</div><span class="step-category">TCII Assessment</span></div>
+      <h2 class="step-title">TCII's Independent Project Assessment</h2>
+      <p class="step-intro">TYIF's Phase 2 recommendation does not guarantee Phase 3 entry. <strong>TCII conducts its own independent assessment</strong> of every referred project. This maintains TCII's integrity and ensures it only supports ventures with genuine potential — which protects both TCII and TYIF.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Review the Phase 2 Evidence Report</div>
+            <div class="substep-text">TCII receives and independently reviews TYIF's Phase 2 Pilot Brief and Evidence Report. TCII is looking for: clarity of the problem, evidence of real-world demand or need, founder capability and commitment, and a credible hypothesis for how this can become a sustainable venture.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Conduct a founder assessment interview</div>
+            <div class="substep-text">TCII interviews each prospective founder — not as a pitch, but as a genuine capability and commitment assessment. Key questions: Why do you want to build this? What is the most important thing you learned in Phase 2? What do you think is the hardest problem ahead of you? What do you need that you don't currently have? Honest answers matter more than polished ones.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Make a clear accept or decline decision within 4 weeks</div>
+            <div class="substep-text">TCII produces a written assessment and communicates its decision to the founders and TYIF within 4 weeks of receiving the referral. If TCII declines: the project closes at Phase 2. The team may return to Phase 1 or explore other paths entirely independently. TCII declining is a valid and respected outcome.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step-section" id="step-4">
+      <div class="step-eyebrow"><div class="step-num-badge">4</div><span class="step-category">Formation</span></div>
+      <h2 class="step-title">Guide Company Formation</h2>
+      <p class="step-intro">For accepted projects, TCII leads the company formation process. This is one of TCII's primary value-adds — founders with no commercial background should not be navigating corporate structure alone. <strong>Formation must be done properly from the start.</strong></p>
+
+      <div class="task-grid">
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Choose the right structure</div>
+          <div class="task-body">Pty Ltd is the default for most ventures. TCII advises on structure based on the venture's model, expected funding path, and whether social enterprise or B Corp registration is appropriate. Document the rationale clearly.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> File incorporation documents</div>
+          <div class="task-body">TCII's legal advisors handle: ACN registration, ABN/TFN, company constitution, registered office, and initial ASIC filings. This typically takes 1–2 weeks. Cost is covered by TCII as part of its support services.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Draft the Shareholders Agreement</div>
+          <div class="task-body">A legally reviewed Shareholders Agreement is non-negotiable. It governs: share classes and proportions, founder vesting schedule, IP assignment, decision-making rights, dividend policy, exit provisions, and TCII's equity position. Founders must have independent legal review before signing.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Set up the company's operational foundations</div>
+          <div class="task-body">Company bank account, bookkeeping setup (Xero or equivalent), registered address, insurance review, and a basic compliance calendar for annual ASIC obligations. These are non-glamorous but essential from day one.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Assign IP clearly</div>
+          <div class="task-body">Any intellectual property developed during Phases 1 and 2 that is carried forward into the new venture must be assigned via a documented IP deed. TYIF retains no IP claims — this is explicit and in writing. The new company owns its IP from formation.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Establish a basic board</div>
+          <div class="task-body">The new company's initial board: founder(s) and one TCII representative (non-controlling). Set a cadence for board meetings from the start — quarterly at minimum. Board minutes kept from day one.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step-section" id="step-5">
+      <div class="step-eyebrow"><div class="step-num-badge">5</div><span class="step-category">Equity</span></div>
+      <h2 class="step-title">Structure Equity Fairly and Transparently</h2>
+      <p class="step-intro">Equity design is the most consequential decision in Phase 3. It determines who benefits if the venture succeeds, how much control founders retain, and how value flows back to TYIF. <strong>The default is always founder-majority, TCII-minority.</strong></p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Define TCII's equity stake and what it represents</div>
+            <div class="substep-text">TCII holds a <strong>minority, non-controlling stake</strong> — typically in the range of 5–20% depending on the nature and depth of support provided. This stake is earned through the tangible value TCII provides: venture studio services, company formation costs, risk absorption, and capability contribution. It is never taken simply for access or referral.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Build a founder vesting schedule</div>
+            <div class="substep-text">Founder shares should vest over a 3–4 year period with a 12-month cliff. This protects the venture if a co-founder leaves early, and it signals that founders' equity is tied to sustained contribution — not just the idea. All founders agree to the same vesting terms at formation.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Consider alternatives where equity isn't appropriate</div>
+            <div class="substep-text">For some ventures — particularly social enterprises, community-led models, or non-scalable impact businesses — a revenue share arrangement or royalty structure may be more appropriate than equity. TCII advises on the most suitable structure for the specific venture, not a one-size-fits-all model.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Document how TYIF ultimately benefits</div>
+            <div class="substep-text">TYIF does not hold direct equity in operating companies. Instead, it benefits through TCII's equity position via a pre-agreed reinvestment mandate: a defined proportion of TCII's realised proceeds (dividends, exits) flows back to TYIF as grants or program funding. This mechanism is documented in the TYIF–TCII framework agreement.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- STEP 6 -->
+    <section class="step-section" id="step-6">
+      <div class="step-eyebrow"><div class="step-num-badge">6</div><span class="step-category">Support</span></div>
+      <h2 class="step-title">Activate TCII's Five Support Domains</h2>
+      <p class="step-intro">Once a company is formed, TCII deploys structured support across five practical domains. This is what differentiates TCII from passive investors — it actively works alongside founders to reduce execution risk and increase venture quality.</p>
+
+      <div class="domain-grid">
+        <div class="domain-card">
+          <div class="domain-num">01</div>
+          <div class="domain-title">Company Formation & Structure</div>
+          <ul class="domain-items">
+            <li>Company constitution and governance setup ✓ done in Step 4</li>
+            <li>Board composition and cadence established</li>
+            <li>Ongoing governance advice as company grows</li>
+          </ul>
+        </div>
+        <div class="domain-card">
+          <div class="domain-num">02</div>
+          <div class="domain-title">Equity & Value Design</div>
+          <ul class="domain-items">
+            <li>Equity cap table maintained and understood by all parties</li>
+            <li>Future fundraising dilution modelled and planned</li>
+            <li>Dividend policy and exit scenarios documented</li>
+          </ul>
+        </div>
+        <div class="domain-card">
+          <div class="domain-num">03</div>
+          <div class="domain-title">Business Model & Market Readiness</div>
+          <ul class="domain-items">
+            <li>Customer discovery and validation (who pays and why)</li>
+            <li>Pricing and unit economics testing</li>
+            <li>Go-to-market plan with defined traction milestones</li>
+            <li>First commercial partnerships or pilots in market</li>
+          </ul>
+        </div>
+        <div class="domain-card">
+          <div class="domain-num">04</div>
+          <div class="domain-title">Operational & Legal Readiness</div>
+          <ul class="domain-items">
+            <li>Risk register and compliance calendar</li>
+            <li>Employment contracts and contractor agreements</li>
+            <li>IP protection and privacy policy</li>
+            <li>Financial controls and monthly reporting discipline</li>
+          </ul>
+        </div>
+        <div class="domain-card" style="grid-column:1/-1;">
+          <div class="domain-num">05</div>
+          <div class="domain-title">Capital Readiness — only if and when needed</div>
+          <ul class="domain-items">
+            <li>First question: does this venture need external capital at all?</li>
+            <li>If yes: prepare investor materials only when the business model is validated</li>
+            <li>Introductions to relevant angel investors or early-stage VCs at appropriate time</li>
+            <li>Term sheet review and negotiation support</li>
+            <li>Avoiding premature fundraising that dilutes founders before value is established</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 7 -->
+    <section class="step-section" id="step-7">
+      <div class="step-eyebrow"><div class="step-num-badge">7</div><span class="step-category">Market</span></div>
+      <h2 class="step-title">Prepare for Market Entry</h2>
+      <p class="step-intro">Phase 3 ends when the venture is genuinely operating in the market — not when it has a website, a pitch deck, or a company registration. Market entry means real customers, real feedback, and the beginning of genuine commercial activity.</p>
+
+      <div class="timeline">
+        <div class="timeline-row">
+          <div class="tl-week">Month 1–2</div>
+          <div class="tl-content"><div class="tl-title">Company Formation Complete</div><div class="tl-text">All legal structure in place, founders aligned on equity, board operating, IP assigned, bank account active.</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-week">Month 2–4</div>
+          <div class="tl-content"><div class="tl-title">Customer Discovery & Model Validation</div><div class="tl-text">Identify first 10 target customers. Have real conversations. Validate pricing assumptions. Define the simplest version of the product/service that can be delivered.</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-week">Month 4–6</div>
+          <div class="tl-content"><div class="tl-title">First Commercial Activity</div><div class="tl-text">Land first paying customer or signed partnership. This is the defining milestone. Revenue, even a small amount, changes the venture's legitimacy and the team's psychology.</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-week">Month 6+</div>
+          <div class="tl-content"><div class="tl-title">Operating & Iterating</div><div class="tl-text">The venture is running. TCII transitions from intensive support to advisory role. Phase 4 begins. Capital strategy reviewed based on trajectory.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 8 -->
+    <section class="step-section" id="step-8">
+      <div class="step-eyebrow"><div class="step-num-badge">8</div><span class="step-category">Capital</span></div>
+      <h2 class="step-title">Approach Capital Strategy with Discipline</h2>
+      <p class="step-intro">Capital is a tool, not a measure of success. Many early-stage ventures raise money before they need it, creating pressure to grow before the model is right. <strong>TCII's first job is to determine whether a venture needs external capital at all — and to delay that conversation until the model is validated.</strong></p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Ask: can this venture reach sustainability without external investment?</div>
+            <div class="substep-text">Service businesses, consulting models, SaaS tools, and many community-focused enterprises can reach profitability on early revenue without raising a cent. If a venture can reach sustainability within 12–18 months on earned revenue, this is the preferred path — it preserves founder equity and avoids investor pressure misaligned with the venture's purpose.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">If capital is needed, define the minimum required — not the maximum available</div>
+            <div class="substep-text">Founders often raise the maximum they can convince investors to give. TCII encourages the opposite: define the minimum capital needed to reach the next meaningful milestone, raise only that amount, and prove the model before raising more. This results in less dilution and better investor relationships.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Identify investor types appropriate to the venture's purpose</div>
+            <div class="substep-text">Not all capital is the same. Impact-aligned angels, social enterprise funds, and mission-driven VCs may be a better fit than traditional growth investors — especially for ventures that emerged from a youth impact ecosystem. TCII maintains a network of appropriate capital sources and makes warm introductions only when the venture is genuinely ready.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-label">TCII's Discipline on Capital</div>
+        <div class="callout-text">TCII will not facilitate introductions to investors before a venture has demonstrated real commercial traction. Premature fundraising harms founders, misrepresents the venture, and risks the relationship between TYIF, TCII, and the investor community.</div>
+      </div>
+    </section>
+
+    <div class="next-phase">
+      <div class="next-text">
+        <div class="label">When ventures are operating independently</div>
+        <h3>Progress to Scale, Sustainability, or Exit →</h3>
+      </div>
+      <a class="next-btn" href="phase-4.html">Phase 4 Setup Guide</a>
+    </div>
+
+  </main>
+</div>
+<script>
+const sections = document.querySelectorAll('.step-section');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.sidebar-nav a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

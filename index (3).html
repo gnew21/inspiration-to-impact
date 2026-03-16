@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TYIF × TCII | Innovation to Venture System</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --dark: #1A1A1A;
+    --charcoal: #2D2D2D;
+    --sage: #6B8C6B;
+    --moss: #4A6741;
+    --gold: #C9A84C;
+    --warm-white: #FDFAF6;
+    --phase1: #5B7FA6;
+    --phase2: #6B8C6B;
+    --phase3: #C9A84C;
+    --phase4: #8B5E3C;
+    --border: rgba(26,26,26,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(247,243,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    color: var(--dark);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 70% 30%, rgba(107,140,107,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(201,168,76,0.10) 0%, transparent 60%);
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--sage);
+  }
+
+  .hero-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--dark);
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--moss);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--charcoal);
+    max-width: 560px;
+    margin-bottom: 52px;
+    opacity: 0.85;
+  }
+
+  .hero-stat-row {
+    display: flex;
+    gap: 48px;
+    border-top: 1px solid var(--border);
+    padding-top: 40px;
+  }
+
+  .hero-stat { }
+
+  .hero-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    color: var(--dark);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--charcoal);
+    opacity: 0.6;
+    margin-top: 6px;
+    max-width: 140px;
+    line-height: 1.4;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 32px;
+    right: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    opacity: 0.4;
+  }
+
+  .scroll-arrow {
+    width: 28px;
+    height: 28px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { position: relative; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+  }
+
+  /* ─── OVERVIEW ─── */
+  .overview {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 120px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .overview .section-label { color: var(--gold); }
+
+  .overview-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.1;
+    color: var(--cream);
+  }
+
+  .overview-body {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: rgba(247,243,238,0.75);
+  }
+
+  .overview-body p + p { margin-top: 20px; }
+
+  .overview-body strong {
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  /* ─── PHASE PIPELINE ─── */
+  .pipeline {
+    padding: 100px 48px;
+    background: var(--warm-white);
+  }
+
+  .pipeline-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 64px;
+  }
+
+  .pipeline-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.1;
+    max-width: 400px;
+  }
+
+  .pipeline-note {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--charcoal);
+    opacity: 0.6;
+    max-width: 280px;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  /* Flow diagram */
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    margin-bottom: 80px;
+  }
+
+  .flow::after {
+    content: '';
+    position: absolute;
+    top: 48px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--phase1), var(--phase2), var(--phase3), var(--phase4));
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 16px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-dot {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+  }
+
+  .flow-step:hover .flow-dot {
+    transform: scale(1.08);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  }
+
+  .flow-dot-inner {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: white;
+  }
+
+  .flow-step[data-phase="1"] .flow-dot { background: var(--phase1); }
+  .flow-step[data-phase="2"] .flow-dot { background: var(--phase2); }
+  .flow-step[data-phase="3"] .flow-dot { background: var(--phase3); }
+  .flow-step[data-phase="4"] .flow-dot { background: var(--phase4); }
+
+  .flow-where {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 4px;
+  }
+
+  .flow-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .flow-desc {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.5;
+    opacity: 0.65;
+  }
+
+
+  .flow-link {
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 16px;
+    background: white;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .flow-link:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    transform: translateY(-3px);
+  }
+  .flow-cta {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 4px;
+    color: white;
+  }
+  .flow-link[data-phase="1"] .flow-cta { background: var(--phase1); }
+  .flow-link[data-phase="2"] .flow-cta { background: var(--phase2); }
+  .flow-link[data-phase="3"] .flow-cta { background: var(--phase3); }
+  .flow-link[data-phase="4"] .flow-cta { background: var(--phase4); }
+  /* ─── PHASE DETAIL CARDS ─── */
+  .phases {
+    padding: 0 48px 120px;
+    background: var(--warm-white);
+  }
+
+  .phase-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 2px;
+    overflow: hidden;
+    background: white;
+    transition: box-shadow 0.2s;
+  }
+
+  .phase-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+
+  .phase-header {
+    padding: 36px 48px;
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .phase-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 400;
+  }
+
+  .phase-card:nth-child(1) .phase-num { color: var(--phase1); }
+  .phase-card:nth-child(2) .phase-num { color: var(--phase2); }
+  .phase-card:nth-child(3) .phase-num { color: var(--phase3); }
+  .phase-card:nth-child(4) .phase-num { color: var(--phase4); }
+
+  .phase-meta { }
+
+  .phase-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    color: white;
+  }
+
+  .phase-card:nth-child(1) .phase-badge { background: var(--phase1); }
+  .phase-card:nth-child(2) .phase-badge { background: var(--phase2); }
+  .phase-card:nth-child(3) .phase-badge { background: var(--phase3); }
+  .phase-card:nth-child(4) .phase-badge { background: var(--phase4); }
+
+  .phase-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .phase-toggle {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.3s;
+  }
+
+  .phase-card.open .phase-toggle {
+    background: var(--dark);
+    transform: rotate(45deg);
+  }
+
+  .phase-toggle svg { transition: stroke 0.2s; }
+  .phase-card.open .phase-toggle svg { stroke: white; }
+
+  .phase-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .phase-card.open .phase-body { max-height: 1400px; }
+  .phase-setup-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 24px; padding: 11px 20px;
+    background: var(--dark); color: white;
+    border-radius: 4px; text-decoration: none;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
+    transition: opacity 0.2s;
+  }
+  .phase-setup-link:hover { opacity: 0.8; }
+  .phase-card:nth-child(1) .phase-setup-link { background: var(--phase1); }
+  .phase-card:nth-child(2) .phase-setup-link { background: var(--phase2); }
+  .phase-card:nth-child(3) .phase-setup-link { background: var(--phase3); }
+  .phase-card:nth-child(4) .phase-setup-link { background: var(--phase4); }
+
+  .phase-content {
+    padding: 0 48px 48px 132px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .phase-text {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--charcoal);
+  }
+
+  .phase-text p + p { margin-top: 16px; }
+
+  .phase-text strong {
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  .phase-sidebar { }
+
+  .sidebar-block {
+    background: var(--cream);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .sidebar-block-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    opacity: 0.5;
+    margin-bottom: 14px;
+  }
+
+  .sidebar-list {
+    list-style: none;
+  }
+
+  .sidebar-list li {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--charcoal);
+    padding: 6px 0;
+    padding-left: 18px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-list li:last-child { border-bottom: none; }
+
+  .sidebar-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.3;
+  }
+
+  .constraint-list li::before { background: #C05353; opacity: 0.5; }
+  .enabler-list li::before { background: var(--sage); opacity: 0.6; }
+
+  /* ─── TCII SECTION ─── */
+  .tcii {
+    background: var(--dark);
+    padding: 100px 48px;
+    color: var(--cream);
+  }
+
+  .tcii-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .tcii-left .section-label { color: var(--gold); }
+
+  .tcii-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .tcii-desc {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.75;
+    opacity: 0.75;
+    margin-bottom: 40px;
+  }
+
+  .tcii-domains {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .domain-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 24px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .domain-card:hover { background: rgba(255,255,255,0.08); }
+
+  .domain-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .domain-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+
+  .domain-items {
+    list-style: none;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0.6;
+  }
+
+  /* ─── OWNERSHIP / VALUE FLOW ─── */
+  .value {
+    padding: 100px 48px;
+    background: var(--cream);
+  }
+
+  .value-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .value-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 40px 32px;
+    border-radius: 4px;
+  }
+
+  .value-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .value-card:nth-child(1) .value-icon { background: rgba(91,127,166,0.12); }
+  .value-card:nth-child(2) .value-icon { background: rgba(107,140,107,0.12); }
+  .value-card:nth-child(3) .value-icon { background: rgba(201,168,76,0.12); }
+
+  .value-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .value-text {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--charcoal);
+    opacity: 0.8;
+  }
+
+  /* ─── PRINCIPLES / RISK ─── */
+  .principles {
+    background: var(--warm-white);
+    padding: 100px 48px;
+  }
+
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .principle-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 36px;
+    border-radius: 4px;
+  }
+
+  .principle-line {
+    width: 32px;
+    height: 3px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .principle-card:nth-child(1) .principle-line { background: var(--phase1); }
+  .principle-card:nth-child(2) .principle-line { background: var(--phase2); }
+  .principle-card:nth-child(3) .principle-line { background: var(--phase3); }
+  .principle-card:nth-child(4) .principle-line { background: var(--phase4); }
+  .principle-card:nth-child(5) .principle-line { background: var(--moss); }
+  .principle-card:nth-child(6) .principle-line { background: var(--gold); }
+
+  .principle-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .principle-text {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--charcoal);
+    opacity: 0.75;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark);
+    padding: 60px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-left {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--cream);
+  }
+
+  .footer-left span { color: var(--gold); }
+
+  .footer-right {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(247,243,238,0.4);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 24px 60px; }
+    .hero-stat-row { flex-wrap: wrap; gap: 28px; }
+    .overview { grid-template-columns: 1fr; padding: 60px 24px; }
+    .pipeline, .phases { padding: 60px 24px; }
+    .flow { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .flow::after { display: none; }
+    .phase-header { grid-template-columns: 48px 1fr auto; padding: 24px; }
+    .phase-content { grid-template-columns: 1fr; padding: 0 24px 32px 24px; }
+    .tcii { padding: 60px 24px; }
+    .tcii-grid { grid-template-columns: 1fr; gap: 40px; }
+    .tcii-domains { grid-template-columns: 1fr; }
+    .value { padding: 60px 24px; }
+    .value-grid { grid-template-columns: 1fr; }
+    .principles { padding: 60px 24px; }
+    .principles-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 16px; padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">TYIF × TCII</a>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#phases">The Phases</a></li>
+    <li><a href="#tcii">TCII</a></li>
+    <li><a href="#value">Value Flow</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+
+  <div class="hero-eyebrow">The Youth Impact Foundation × The Catalytic Impact Institution</div>
+
+  <h1 class="hero-headline">
+    From <em>inspiration</em><br>to impact.
+  </h1>
+
+  <p class="hero-sub">
+    A phased innovation-to-venture system that captures and develops youth-led ideas over time — impact-first, ethically structured, and built to last.
+  </p>
+
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <div class="hero-stat-num">160K+</div>
+      <div class="hero-stat-label">Young people through TYIF programs each year</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">Clearly defined phases from idea to independent venture</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">1M</div>
+      <div class="hero-stat-label">Young people TYIF aims to reach by 2030</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">60%</div>
+      <div class="hero-stat-label">Of teens prefer entrepreneurship over traditional employment</div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Explore</span>
+    <div class="scroll-arrow">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M6 2v8M2 8l4 4 4-4"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section class="overview reveal" id="overview">
+  <div>
+    <p class="section-label">The Challenge</p>
+    <h2 class="overview-heading">Most inspiration ends when a program finishes.</h2>
+  </div>
+  <div class="overview-body">
+    <p>Each year, over <strong>160,000 young people</strong> move through TYIF's programs, feeling inspired, empowered, and hopeful. Some leave with ideas for "changing the world" — solving real problems, creating genuine good. But most of that inspiration and potential dissipates the moment a program concludes.</p>
+    <p>Currently, there is no intentional, shared space that supports young people to continue developing ideas once a program ends. This model creates <strong>continuity</strong> — a structured pathway where ideas can be explored, tested, and where appropriate, scaled responsibly.</p>
+    <p>By 2030, TYIF will have reached more than <strong>1,000,000 young people</strong>. The opportunity is not to push youth toward entrepreneurship — it's to intentionally channel the ideas, effort, and leadership that already exist.</p>
+  </div>
+</section>
+
+<!-- PIPELINE FLOW -->
+<section class="pipeline reveal" id="phases">
+  <div class="pipeline-header">
+    <div>
+      <p class="section-label">The System</p>
+      <h2 class="pipeline-title">Four phases. One clear pathway.</h2>
+    </div>
+    <p class="pipeline-note">Each phase has standalone value, explicit exit points, and firm no-go rules.</p>
+  </div>
+
+  <div class="flow">
+    <a class="flow-step flow-link" data-phase="1" href="phase-1.html">
+      <div class="flow-dot"><span class="flow-dot-inner">1</span></div>
+      <p class="flow-where">Within TYIF</p>
+      <p class="flow-name">Idea &amp; Project Space</p>
+      <p class="flow-desc">Open, inclusive idea capture embedded across programs and alumni networks</p>
+      <span class="flow-cta">View Setup Guide &rarr;</span>
+    </a>
+    <a class="flow-step flow-link" data-phase="2" href="phase-2.html">
+      <div class="flow-dot"><span class="flow-dot-inner">2</span></div>
+      <p class="flow-where">Within TYIF</p>
+      <p class="flow-name">Innovation Lab</p>
+      <p class="flow-desc">Selective, evidence-driven pilots with clear success criteria and defined exit points</p>
+      <span class="flow-cta">View Setup Guide &rarr;</span>
+    </a>
+    <a class="flow-step flow-link" data-phase="3" href="phase-3.html">
+      <div class="flow-dot"><span class="flow-dot-inner">3</span></div>
+      <p class="flow-where">Outside TYIF via TCII</p>
+      <p class="flow-name">External Venture Pathway</p>
+      <p class="flow-desc">Independent company formation for a very small number of validated ideas</p>
+      <span class="flow-cta">View Setup Guide &rarr;</span>
+    </a>
+    <a class="flow-step flow-link" data-phase="4" href="phase-4.html">
+      <div class="flow-dot"><span class="flow-dot-inner">4</span></div>
+      <p class="flow-where">Fully Independent</p>
+      <p class="flow-name">Scale, Sustainability, or Exit</p>
+      <p class="flow-desc">Ventures operate independently; value flows back to TYIF through TCII</p>
+      <span class="flow-cta">View Setup Guide &rarr;</span>
+    </a>
+  </div>
+
+  <!-- PHASE CARDS -->
+  <div class="phases" style="padding: 0; background: none;">
+
+    <!-- Phase 1 -->
+    <div class="phase-card" id="phase-1">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-num">01</div>
+        <div class="phase-meta">
+          <div class="phase-badge">Within TYIF · Open to all</div>
+          <h3 class="phase-title">TYIF Idea & Project Space</h3>
+        </div>
+        <div class="phase-toggle">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#1A1A1A" stroke-width="1.5">
+            <path d="M6 2v8M2 6h8"/>
+          </svg>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-content">
+          <div class="phase-text">
+            <p>Phase 1 exists entirely within TYIF and serves as the <strong>primary engine for capturing and developing ideas</strong>. Embedded across TYIF brands, existing programs, alumni engagement and facilitator-led activities, it provides a structured mechanism for young people to articulate ideas, collaborate with others, and begin developing initiatives that respond to real needs and lived experience.</p>
+            <p>In this phase, there is <strong>no equity, no funding commitment, no IP transfer, and no commercial obligation</strong>. TYIF's role is to provide structure, feedback, continuity and direction. Every idea is acknowledged, categorised, and responded to.</p>
+            <p>Credibility is critical. Participants must see that ideas are taken seriously, responded to, and acted on where appropriate. Even small visible outcomes — program tweaks, pilot activities, facilitated collaborations — will demonstrate that this space is real.</p>
+            <p>Success in Phase 1 is measured by <strong>engagement, quality of ideas, tangible program improvements</strong>, and the extent to which young people invest sustained time and effort into developing their ideas.</p>
+          </div>
+          <div class="phase-sidebar">
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">Ideas that may emerge</p>
+              <ul class="sidebar-list">
+                <li>Improvements to existing programs or delivery models</li>
+                <li>New initiatives aligned with TYIF's mission</li>
+                <li>Early-stage concepts that may eventually operate beyond TYIF</li>
+              </ul>
+            
+            <a href="phase-1.html" class="phase-setup-link">Full Setup Guide &rarr;</a>
+          </div>
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">Enablers for success</p>
+              <ul class="sidebar-list enabler-list">
+                <li>Internal organisational structure and commitment</li>
+                <li>Consistent integration into programs and alumni pathways</li>
+                <li>Reliable processes for idea capture, review, and feedback</li>
+              </ul>
+            </div>
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">Phase 1 must avoid</p>
+              <ul class="sidebar-list constraint-list">
+                <li>Any implication of future commercialisation</li>
+                <li>Any transfer of ownership or IP</li>
+                <li>Any expectation of performance or outcomes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-card" id="phase-2">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-num">02</div>
+        <div class="phase-meta">
+          <div class="phase-badge">Within TYIF · Selective</div>
+          <h3 class="phase-title">TYIF Innovation Lab</h3>
+        </div>
+        <div class="phase-toggle">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#1A1A1A" stroke-width="1.5">
+            <path d="M6 2v8M2 6h8"/>
+          </svg>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-content">
+          <div class="phase-text">
+            <p>Phase 2 is a progression for a small number of ideas that demonstrate the potential for deeper development. This phase <strong>remains entirely within TYIF</strong> and exists to test feasibility, build evidence, and assess real-world value.</p>
+            <p>Projects are piloted over a defined period — typically <strong>8–12 weeks</strong> — with clear success metrics and boundaries. A small, clearly defined review group comprising TYIF leadership and relevant program representatives oversees progression and exit decisions.</p>
+            <p><strong>Stopping a pilot should be framed as a successful learning outcome</strong>, not a failure. This protects resources, maintains focus, and reinforces that evidence drives progression.</p>
+            <p>Reaching the end of Phase 2 does not imply that a project should become a venture. Stopping at this point is a valid and successful outcome.</p>
+          </div>
+          <div class="phase-sidebar">
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">Entry criteria</p>
+              <ul class="sidebar-list enabler-list">
+                <li>Alignment with TYIF's mission</li>
+                <li>Clarity of the problem being addressed</li>
+                <li>Feasibility within TYIF's operating environment</li>
+                <li>Ethical safety</li>
+              </ul>
+            
+            <a href="phase-2.html" class="phase-setup-link">Full Setup Guide &rarr;</a>
+          </div>
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">Possible outcomes</p>
+              <ul class="sidebar-list">
+                <li>Integration into TYIF programs or operations</li>
+                <li>Documentation and closure with learning retained</li>
+                <li>Eligibility for independent development beyond TYIF</li>
+              </ul>
+            </div>
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">Phase 1 vs Phase 2</p>
+              <ul class="sidebar-list">
+                <li><strong>Phase 1</strong> — broad, inclusive, capability-building; no outcome requirements</li>
+                <li><strong>Phase 2</strong> — selective, evidence-driven, decision-making environment</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-card" id="phase-3">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-num">03</div>
+        <div class="phase-meta">
+          <div class="phase-badge">Outside TYIF via TCII · Very selective</div>
+          <h3 class="phase-title">External Venture Pathway via TCII</h3>
+        </div>
+        <div class="phase-toggle">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#1A1A1A" stroke-width="1.5">
+            <path d="M6 2v8M2 6h8"/>
+          </svg>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-content">
+          <div class="phase-text">
+            <p>Phase 3 provides a deliberate, ethical, and operationally sound pathway for a very small number of projects to become independent ventures. <strong>All activity occurs outside The Youth Impact Foundation</strong>, via The Catalytic Impact Institution (TCII).</p>
+            <p>This separation is essential to protect TYIF's charitable status, youth safeguarding obligations, and governance integrity, while enabling legitimate commercial activity in an appropriate vehicle.</p>
+            <p>Participants formally transition from program participants to <strong>founders</strong> — moving from a developmental environment to one of full operational, legal, and financial accountability. This transition is always <strong>optional, deliberate, and opt-in</strong>.</p>
+            <p>TCII operates as a venture studio and risk-bearing partner — not an incubator, accelerator, or owner of ideas. Its role is to reduce execution risk and increase venture quality by providing hands-on support where early-stage founders typically lack capability.</p>
+          </div>
+          <div class="phase-sidebar">
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">Entry conditions (all must be met)</p>
+              <ul class="sidebar-list">
+                <li>Phase 2 formally completed with documented outcomes</li>
+                <li>Clear case that project cannot or should not continue within TYIF</li>
+                <li>Individuals explicitly opt in as founders or collaborators</li>
+                <li>All participants are no longer TYIF program participants</li>
+                <li>Informed consent documented; independent legal advice encouraged</li>
+              </ul>
+            
+            <a href="phase-3.html" class="phase-setup-link">Full Setup Guide &rarr;</a>
+          </div>
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">TCII disciplines</p>
+              <ul class="sidebar-list enabler-list">
+                <li>Highly selective — very few projects enter Phase 3</li>
+                <li>Patient — ventures built deliberately, not rushed</li>
+                <li>Quality-focused — no pressure for volume</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="phase-card" id="phase-4">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-num">04</div>
+        <div class="phase-meta">
+          <div class="phase-badge">Fully Independent</div>
+          <h3 class="phase-title">Scale, Sustainability, or Exit</h3>
+        </div>
+        <div class="phase-toggle">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#1A1A1A" stroke-width="1.5">
+            <path d="M6 2v8M2 6h8"/>
+          </svg>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-content">
+          <div class="phase-text">
+            <p>Phase 4 begins once ventures are <strong>fully independent and operating in the market</strong>. Ventures are no longer connected to TYIF's program delivery or participant environment — they operate with full responsibility for their own commercial, legal, and operational decisions.</p>
+            <p>Financial value created through successful ventures is designed to flow back to TYIF through pre-agreed, transparent mechanisms. Over time, this creates a <strong>complementary sustainability pathway for TYIF</strong>, enabling reinvestment in programs, innovation, and long-term impact while reducing reliance on grants and donations.</p>
+            <p><strong>Failure is an expected and acceptable outcome.</strong> Ventures that close responsibly still generate meaningful value in the form of leadership development, commercial experience, and system-level learning.</p>
+          </div>
+          <div class="phase-sidebar">
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">Venture pathways</p>
+              <ul class="sidebar-list">
+                <li>Sustainable, profitable operation without external capital</li>
+                <li>Growth through angel or venture capital investment</li>
+                <li>Acquisition by a larger organisation</li>
+                <li>Orderly closure with learning retained</li>
+              </ul>
+            
+            <a href="phase-4.html" class="phase-setup-link">Full Setup Guide &rarr;</a>
+          </div>
+            <div class="sidebar-block">
+              <p class="sidebar-block-title">Value flows back to TYIF via</p>
+              <ul class="sidebar-list enabler-list">
+                <li>Dividends or exit proceeds through TCII's equity holdings</li>
+                <li>Grants or program funding from TCII surplus</li>
+                <li>Strategic partnerships or sponsorship arrangements</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TCII -->
+<section class="tcii reveal" id="tcii">
+  <div class="tcii-grid">
+    <div class="tcii-left">
+      <p class="section-label">The Partner</p>
+      <h2 class="tcii-heading">The Catalytic Impact Institution</h2>
+      <p class="tcii-desc">TCII operates as a venture studio and risk-bearing partner — not an incubator, accelerator, or owner of ideas. It provides structured support across five practical domains, absorbing execution risk so founders can focus on building.</p>
+      <p class="tcii-desc" style="font-size:14px; opacity:0.5;">TCII operates as an independent public company, entirely separate from TYIF, ensuring full protection of TYIF's charitable status.</p>
+    </div>
+    <div class="tcii-domains">
+      <div class="domain-card">
+        <div class="domain-num">01</div>
+        <div class="domain-name">Company Formation & Structure</div>
+        <ul class="domain-items">
+          <li>Incorporation of new legal entities</li>
+          <li>Shareholder agreements & founder alignment</li>
+          <li>Board and governance setup</li>
+        </ul>
+      </div>
+      <div class="domain-card">
+        <div class="domain-num">02</div>
+        <div class="domain-name">Equity & Value Design</div>
+        <ul class="domain-items">
+          <li>Fair, minority, non-controlling equity</li>
+          <li>Founder-majority ownership as default</li>
+          <li>Alternative structures where appropriate</li>
+        </ul>
+      </div>
+      <div class="domain-card">
+        <div class="domain-num">03</div>
+        <div class="domain-name">Business Model & Market Readiness</div>
+        <ul class="domain-items">
+          <li>Customer, pricing, and delivery validation</li>
+          <li>Unit economics and sustainability testing</li>
+          <li>Go-to-market planning and traction</li>
+        </ul>
+      </div>
+      <div class="domain-card">
+        <div class="domain-num">04</div>
+        <div class="domain-name">Operational & Legal Readiness</div>
+        <ul class="domain-items">
+          <li>Risk management and compliance</li>
+          <li>Intellectual property strategy</li>
+          <li>Financial controls and reporting</li>
+        </ul>
+      </div>
+      <div class="domain-card" style="grid-column: 1 / -1;">
+        <div class="domain-num">05</div>
+        <div class="domain-name">Capital Readiness</div>
+        <ul class="domain-items">
+          <li>Determining whether external capital is required at all</li>
+          <li>Preparing ventures for angels or venture capital only when appropriate</li>
+          <li>Avoiding premature or unnecessary fundraising</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE FLOW -->
+<section class="value reveal" id="value">
+  <p class="section-label">Ownership & Value</p>
+  <h2 style="font-family:'DM Serif Display',serif; font-size:clamp(28px,3.5vw,44px); line-height:1.1; max-width:500px;">Designed to be ethical, transparent, and fair.</h2>
+
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon">🏗️</div>
+      <h3 class="value-title">Founders keep control</h3>
+      <p class="value-text">TCII holds a minority, non-controlling equity stake in ventures it supports. Founders retain majority ownership and decision-making authority. Young people are never required to give up ownership simply for participation.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🛡️</div>
+      <h3 class="value-title">TYIF stays protected</h3>
+      <p class="value-text">TYIF bears no operational, financial, or legal risk related to external ventures. TCII absorbs commercial, legal, and execution risk during venture formation. Venture outcomes — success or failure — do not compromise TYIF's programs or charitable obligations.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">🔄</div>
+      <h3 class="value-title">Value flows back</h3>
+      <p class="value-text">Financial value from successful ventures flows back to TYIF through TCII — via dividends, exit proceeds, grants, or strategic partnerships. This creates long-term sustainability, reducing reliance on grants and reinvesting in future programs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="principles reveal">
+  <p class="section-label">Design Principles</p>
+  <h2 style="font-family:'DM Serif Display',serif; font-size:clamp(28px,3.5vw,44px); line-height:1.1; max-width:500px;">What makes this model work.</h2>
+
+  <div class="principles-grid">
+    <div class="principle-card">
+      <div class="principle-line"></div>
+      <h3 class="principle-title">Impact first, always</h3>
+      <p class="principle-text">TYIF remains focused on people, impact, and program delivery at every stage. Commercial activity enters only through a separately structured vehicle, well after charitable obligations have been honoured.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-line"></div>
+      <h3 class="principle-title">Evidence drives progression</h3>
+      <p class="principle-text">Advancement through phases is earned, not assumed. Clear criteria, time-bound pilots, and explicit exit decisions ensure progression is driven by real-world evidence rather than enthusiasm or informal influence.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-line"></div>
+      <h3 class="principle-title">Deliberate separation</h3>
+      <p class="principle-text">The boundary between TYIF and commercial activity is clear and firm. Capital and commercial investment enter only after independent company formation, ensuring TYIF's charitable integrity is never compromised.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-line"></div>
+      <h3 class="principle-title">Stopping is success</h3>
+      <p class="principle-text">Most ideas will — and should — remain in Phase 1 or 2. Closing a pilot responsibly is framed as a valid, successful outcome that generates learning and leadership development for the broader ecosystem.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-line"></div>
+      <h3 class="principle-title">Opt-in at every stage</h3>
+      <p class="principle-text">Progression is always deliberate and participant-driven. Individuals explicitly choose to become founders. There is no pressure, assumption, or expectation of commercial outcomes from participation in TYIF programs.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-line"></div>
+      <h3 class="principle-title">Long-term sustainability</h3>
+      <p class="principle-text">As ventures succeed, value returns to TYIF through ethical, transparent mechanisms. This creates a self-reinforcing cycle — youth-led ideas strengthening the organisation that made them possible in the first place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">TYIF <span>×</span> TCII</div>
+  <div class="footer-right">Innovation to Venture System · Draft Pitch</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Phase accordion
+  function togglePhase(header) {
+    const card = header.closest('.phase-card');
+    card.classList.toggle('open');
+  }
+
+  function openPhase(index) {
+    const cards = document.querySelectorAll('.phase-card');
+    if (cards[index]) {
+      cards[index].classList.add('open');
+      cards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+</script>
+</body>
+</html>

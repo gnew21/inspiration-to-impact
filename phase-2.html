@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 2: Innovation Lab — Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE; --dark: #1A1A1A; --charcoal: #2D2D2D; --warm-white: #FDFAF6;
+    --border: rgba(26,26,26,0.1);
+    --phase: #6B8C6B; --phase-light: rgba(107,140,107,0.08); --phase-mid: rgba(107,140,107,0.18);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+  nav { position: sticky; top: 0; z-index: 100; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(247,243,238,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-back { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; opacity: 0.6; transition: opacity 0.2s; }
+  .nav-back:hover { opacity: 1; }
+  .nav-phase { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--phase); }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; opacity: 0.5; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .hero { padding: 80px 48px 72px; background: var(--dark); position: relative; overflow: hidden; }
+  .hero::before { content: '02'; position: absolute; right: -20px; top: -40px; font-family: 'DM Serif Display', serif; font-size: 320px; color: rgba(107,140,107,0.07); line-height: 1; pointer-events: none; user-select: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phase); margin-bottom: 20px; }
+  .hero-badge::before { content: ''; display: block; width: 24px; height: 1px; background: var(--phase); }
+  .hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(38px,6vw,72px); line-height: 1.0; color: #F7F3EE; margin-bottom: 24px; max-width: 700px; }
+  .hero-title em { font-style: italic; color: var(--phase); }
+  .hero-subtitle { font-size: 17px; font-weight: 300; line-height: 1.7; color: rgba(247,243,238,0.65); max-width: 560px; margin-bottom: 48px; }
+  .hero-meta { display: flex; gap: 48px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
+  .meta-val { font-family: 'DM Serif Display', serif; font-size: 28px; color: #F7F3EE; }
+  .meta-label { font-size: 12px; font-weight: 300; color: rgba(247,243,238,0.45); margin-top: 4px; }
+  .ecosystems { background: var(--phase); padding: 40px 48px; display: flex; gap: 0; overflow-x: auto; }
+  .eco-item { flex: 1; min-width: 180px; padding: 0 32px; border-right: 1px solid rgba(255,255,255,0.2); color: white; }
+  .eco-item:first-child { padding-left: 0; }
+  .eco-item:last-child { border-right: none; }
+  .eco-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; }
+  .eco-name { font-family: 'DM Serif Display', serif; font-size: 18px; line-height: 1.2; }
+  .page-body { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  .sidebar { background: white; border-right: 1px solid var(--border); padding: 48px 32px; position: sticky; top: 57px; height: calc(100vh - 57px); overflow-y: auto; }
+  .sidebar-heading { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--charcoal); opacity: 0.4; margin-bottom: 20px; }
+  .sidebar-nav { list-style: none; }
+  .sidebar-nav li { margin-bottom: 2px; }
+  .sidebar-nav a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; font-weight: 400; color: var(--charcoal); transition: background 0.15s, color 0.15s; }
+  .sidebar-nav a:hover { background: var(--phase-light); color: var(--phase); }
+  .sidebar-nav a.active { background: var(--phase-mid); color: var(--phase); font-weight: 500; }
+  .step-num { font-size: 11px; opacity: 0.4; width: 18px; flex-shrink: 0; }
+  .sidebar-divider { height: 1px; background: var(--border); margin: 20px 0; }
+  .phase-link { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 400; color: var(--charcoal); opacity: 0.55; transition: opacity 0.2s; }
+  .phase-link:hover { opacity: 1; }
+  .phase-link-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .main { padding: 64px 64px 120px; max-width: 900px; }
+  .step-section { margin-bottom: 80px; scroll-margin-top: 80px; }
+  .step-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .step-num-badge { width: 36px; height: 36px; border-radius: 50%; background: var(--phase); color: white; font-family: 'DM Serif Display', serif; font-size: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-category { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--phase); }
+  .step-title { font-family: 'DM Serif Display', serif; font-size: clamp(22px,2.5vw,32px); line-height: 1.1; margin-bottom: 16px; }
+  .step-intro { font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--charcoal); margin-bottom: 32px; opacity: 0.85; }
+  .step-intro strong { font-weight: 500; color: var(--dark); }
+  .task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 32px; }
+  .task-card { background: white; border: 1px solid var(--border); padding: 28px; border-radius: 4px; }
+  .task-card-title { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
+  .task-check { width: 20px; height: 20px; border: 1.5px solid var(--phase); border-radius: 4px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .task-check.done { background: var(--phase); }
+  .task-check.done::after { content: '✓'; color: white; font-size: 11px; }
+  .task-body { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--charcoal); opacity: 0.8; padding-left: 30px; }
+  .substep-list { list-style: none; margin-bottom: 32px; }
+  .substep-item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+  .substep-item:last-child { border-bottom: none; }
+  .substep-marker { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--phase); color: var(--phase); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .substep-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .substep-text { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--charcoal); opacity: 0.8; }
+  .substep-text strong { font-weight: 500; color: var(--dark); opacity: 1; }
+  .callout { border-left: 3px solid var(--phase); background: var(--phase-light); padding: 20px 24px; border-radius: 0 4px 4px 0; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phase); margin-bottom: 8px; }
+  .callout-text { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--charcoal); }
+  .callout-text strong { font-weight: 500; }
+  .callout.warn { border-color: #C05353; background: rgba(192,83,83,0.06); }
+  .callout.warn .callout-label { color: #C05353; }
+  .role-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+  .role-table th { text-align: left; padding: 10px 16px; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); opacity: 0.4; border-bottom: 1px solid var(--border); }
+  .role-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; font-weight: 300; line-height: 1.5; color: var(--charcoal); }
+  .role-table tr:last-child td { border-bottom: none; }
+  .role-name { font-weight: 500; color: var(--dark); }
+  .timeline { margin-bottom: 32px; }
+  .timeline-row { display: flex; gap: 16px; margin-bottom: 2px; }
+  .tl-week { width: 100px; flex-shrink: 0; background: var(--phase); color: white; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; padding: 12px 16px; border-radius: 4px; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .tl-content { flex: 1; background: white; border: 1px solid var(--border); padding: 14px 20px; border-radius: 4px; }
+  .tl-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .tl-text { font-size: 13px; font-weight: 300; line-height: 1.5; color: var(--charcoal); opacity: 0.75; }
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 32px; }
+  .metric-card { background: white; border: 1px solid var(--border); padding: 24px; border-radius: 4px; }
+  .metric-val { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--phase); line-height: 1; margin-bottom: 8px; }
+  .metric-label { font-size: 13px; font-weight: 400; color: var(--charcoal); opacity: 0.7; line-height: 1.4; }
+  .pilot-phases { margin-bottom: 32px; }
+  .pilot-row { display: grid; grid-template-columns: 120px 1fr; gap: 16px; margin-bottom: 2px; }
+  .pilot-week { background: var(--phase); color: white; padding: 16px; border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .pilot-week-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin-bottom: 4px; }
+  .pilot-week-val { font-family: 'DM Serif Display', serif; font-size: 20px; }
+  .pilot-content { background: white; border: 1px solid var(--border); padding: 20px 24px; border-radius: 4px; }
+  .pilot-phase-title { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+  .pilot-items { list-style: none; }
+  .pilot-items li { font-size: 13px; font-weight: 300; line-height: 1.5; color: var(--charcoal); opacity: 0.8; padding: 4px 0; padding-left: 16px; position: relative; }
+  .pilot-items li::before { content: '—'; position: absolute; left: 0; opacity: 0.4; }
+  .next-phase { background: var(--dark); color: #F7F3EE; padding: 48px; border-radius: 4px; margin-top: 80px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+  .next-text .label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.4; margin-bottom: 8px; }
+  .next-text h3 { font-family: 'DM Serif Display', serif; font-size: 28px; color: #F7F3EE; }
+  .next-btn { background: var(--phase); color: white; padding: 14px 28px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: 500; white-space: nowrap; transition: opacity 0.2s; }
+  .next-btn:hover { opacity: 0.85; }
+  @media(max-width:900px){ nav { padding: 14px 20px; } .hero { padding: 60px 24px 48px; } .ecosystems { padding: 32px 24px; } .page-body { grid-template-columns: 1fr; } .sidebar { display: none; } .main { padding: 40px 24px 80px; } .task-grid { grid-template-columns: 1fr; } .metrics-grid { grid-template-columns: 1fr 1fr; } .next-phase { flex-direction: column; padding: 32px 24px; } .pilot-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-back" href="index.html"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg> Back to Overview</a>
+  <span class="nav-phase">Phase 2 — Setup Guide</span>
+  <ul class="nav-links">
+    <li><a href="phase-1.html">Phase 1</a></li><li><a href="phase-2.html">Phase 2</a></li><li><a href="phase-3.html">Phase 3</a></li><li><a href="phase-4.html">Phase 4</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Phase 02</div>
+  <h1 class="hero-title">TYIF<br><em>Innovation Lab</em></h1>
+  <p class="hero-subtitle">A selective, evidence-driven environment where a small number of Phase 1 ideas are rigorously tested. Time-bound pilots, clear governance, and explicit exit decisions — within TYIF.</p>
+  <div class="hero-meta">
+    <div><div class="meta-val">8–12 wks</div><div class="meta-label">Pilot duration per project</div></div>
+    <div><div class="meta-val">Selective</div><div class="meta-label">Entry based on clear criteria only</div></div>
+    <div><div class="meta-val">3 outcomes</div><div class="meta-label">Integrate, close, or advance to Phase 3</div></div>
+    <div><div class="meta-val">Still TYIF</div><div class="meta-label">No equity, no IP transfer at this stage</div></div>
+  </div>
+</section>
+
+<div class="ecosystems">
+  <div class="eco-item"><div class="eco-label">Ecosystem 1</div><div class="eco-name">TYIF Leadership & Review Group</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 2</div><div class="eco-name">Project Teams (young people & staff)</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 3</div><div class="eco-name">Program Delivery Leads</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 4</div><div class="eco-name">TCII (observer / advisory only)</div></div>
+</div>
+
+<div class="page-body">
+  <aside class="sidebar">
+    <p class="sidebar-heading">Setup Steps</p>
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li><a href="#step-1"><span class="step-num">1</span> Governance Structure</a></li>
+      <li><a href="#step-2"><span class="step-num">2</span> Entry Criteria & Assessment</a></li>
+      <li><a href="#step-3"><span class="step-num">3</span> Lab Environment</a></li>
+      <li><a href="#step-4"><span class="step-num">4</span> Pilot Framework</a></li>
+      <li><a href="#step-5"><span class="step-num">5</span> Success Metrics Design</a></li>
+      <li><a href="#step-6"><span class="step-num">6</span> Exit Decision Process</a></li>
+      <li><a href="#step-7"><span class="step-num">7</span> Knowledge Retention</a></li>
+      <li><a href="#step-8"><span class="step-num">8</span> Phase 3 Pathway Trigger</a></li>
+    </ul>
+    <div class="sidebar-divider"></div>
+    <p class="sidebar-heading">All Phases</p>
+    <div>
+      <a class="phase-link" href="phase-1.html"><span class="phase-link-dot" style="background:#5B7FA6"></span> Phase 1 — Idea Space</a>
+      <a class="phase-link" href="phase-2.html"><span class="phase-link-dot" style="background:#6B8C6B"></span> Phase 2 — Innovation Lab</a>
+      <a class="phase-link" href="phase-3.html"><span class="phase-link-dot" style="background:#C9A84C"></span> Phase 3 — Venture Pathway</a>
+      <a class="phase-link" href="phase-4.html"><span class="phase-link-dot" style="background:#8B5E3C"></span> Phase 4 — Scale & Exit</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- STEP 1 -->
+    <section class="step-section" id="step-1">
+      <div class="step-eyebrow"><div class="step-num-badge">1</div><span class="step-category">Governance</span></div>
+      <h2 class="step-title">Establish the Governance Structure</h2>
+      <p class="step-intro">The Innovation Lab requires a <strong>small, clearly defined review group</strong> with real authority. Without clear governance, the lab becomes a holding space for unfinished ideas and informal influence. Governance must be established before any projects enter the lab.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Form the Innovation Lab Review Group</div>
+            <div class="substep-text">This group has 3–5 members: TYIF CEO or delegate (Chair), a TYIF program lead, a TYIF operations/finance representative, and optionally one external advisor with relevant experience. Keep it small — large committees dilute decision-making. <strong>TCII may observe but does not vote</strong> at this stage.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Define the Review Group's authority</div>
+            <div class="substep-text">The Review Group has authority to: approve or reject Phase 2 entry, set pilot parameters (scope, timeline, resources), make end-of-pilot decisions (integrate, close, or advance), and allocate TYIF's Phase 2 budget. Document this formally — authority without written definition gets challenged.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Set a regular cadence</div>
+            <div class="substep-text">The Review Group meets monthly, or whenever a pilot reaches a decision point. Each meeting follows a standard agenda: active pilot updates, end-of-phase decisions pending, new Phase 1 candidates to assess. Keep meetings to 60–90 minutes maximum.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Appoint an Innovation Lab Coordinator</div>
+            <div class="substep-text">A named staff member (separate from the Review Group) coordinates day-to-day lab operations: project scheduling, communication with participants, documentation, and meeting preparation. The Review Group makes decisions; the Coordinator keeps everything moving between meetings.</div>
+          </div>
+        </li>
+      </ul>
+
+      <table class="role-table">
+        <thead><tr><th>Role</th><th>Responsibility</th><th>Meetings</th></tr></thead>
+        <tbody>
+          <tr><td class="role-name">Review Group Chair (CEO)</td><td>Final decision authority, escalation, external credibility</td><td>Monthly + decision points</td></tr>
+          <tr><td class="role-name">Review Group Members (x2–4)</td><td>Assessment, mission alignment check, risk review</td><td>Monthly + decision points</td></tr>
+          <tr><td class="role-name">Innovation Lab Coordinator</td><td>Day-to-day operations, documentation, participant communication</td><td>Ongoing</td></tr>
+          <tr><td class="role-name">Project Team Lead (participant)</td><td>Accountable for pilot delivery and reporting</td><td>Fortnightly check-in</td></tr>
+          <tr><td class="role-name">TCII Observer (optional)</td><td>Advisory input on commercialisation questions only</td><td>End-of-phase reviews only</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step-section" id="step-2">
+      <div class="step-eyebrow"><div class="step-num-badge">2</div><span class="step-category">Selection</span></div>
+      <h2 class="step-title">Design the Entry Criteria and Assessment Process</h2>
+      <p class="step-intro">Entry into Phase 2 is earned — not given. Clear, written criteria make selection fair, defensible, and trustworthy. Vague criteria lead to inconsistent decisions and erode confidence in the system. <strong>The assessment should take minutes to apply and hours to dispute — not the reverse.</strong></p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Define the four core entry criteria (all must be met)</div>
+            <div class="substep-text"><strong>1. Mission alignment</strong> — Does the idea directly or indirectly serve TYIF's purpose of strengthening youth impact?<br><br><strong>2. Problem clarity</strong> — Can the team articulate the specific problem, who experiences it, and why existing solutions are insufficient?<br><br><strong>3. Feasibility</strong> — Can this be meaningfully tested within TYIF's operating environment, available resources, and a defined timeframe?<br><br><strong>4. Ethical safety</strong> — Does the idea raise any concerns about safeguarding, legal compliance, data privacy, or reputational risk?</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Build a simple scoring template</div>
+            <div class="substep-text">Create a one-page assessment form for Review Group members. For each criterion: a 1–3 rating and a short written rationale. This forces reviewers to articulate their reasoning and prevents gut-feel decisions. Aggregate scores should inform, not replace, a genuine conversation.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Design a Phase 1 → Phase 2 nomination pathway</div>
+            <div class="substep-text">Ideas can be nominated for Phase 2 by: the Phase 1 Program Lead (based on review data), a facilitator who worked with the team, or the participant team themselves (self-nomination). All nominations go through the same assessment process. No informal fast-tracking — even strong ideas go through the gate.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Create a brief candidate interview process</div>
+            <div class="substep-text">Before final approval, the Review Group or Coordinator holds a short conversation (30–45 min) with the project team. This is not a high-pressure pitch — it is a genuine assessment of the team's understanding of their idea, their commitment to a defined pilot, and their comfort with accountability. If the team cannot articulate what they are testing, they are not ready.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="callout warn">
+        <div class="callout-label">Selection Risk</div>
+        <div class="callout-text">The biggest failure mode is selecting too many projects at once. Start with 1–2 pilots maximum in the first cohort. Quality, focus, and visible outcomes matter far more than volume. An overfull lab with underdeveloped projects damages credibility.</div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step-section" id="step-3">
+      <div class="step-eyebrow"><div class="step-num-badge">3</div><span class="step-category">Environment</span></div>
+      <h2 class="step-title">Build the Lab Environment</h2>
+      <p class="step-intro">The Innovation Lab doesn't need a physical space — it needs a <strong>structured operating environment</strong>: tools, rituals, templates, and norms that make pilot work feel real, distinct, and accountable. This is what separates the lab from a classroom project.</p>
+
+      <div class="task-grid">
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Set up a shared project workspace</div>
+          <div class="task-body">Each project gets a dedicated shared folder or Notion/Google Drive workspace: project brief, pilot plan, meeting notes, evidence log, and a weekly update log. The Coordinator has view access to all workspaces at all times.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Establish a weekly check-in rhythm</div>
+          <div class="task-body">Each project team has a fortnightly 30-minute check-in with the Coordinator. Agenda: what did you do, what did you learn, what's next, any blockers? This keeps momentum without over-managing. Red flags (inactivity, scope creep, team conflict) surface here first.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Create a Pilot Brief template</div>
+          <div class="task-body">Every project entering Phase 2 completes a Pilot Brief: problem statement, proposed solution, what will be tested, how success will be measured, timeline, resources needed, and defined exit decision date. One page maximum. This becomes the project's contract with the Review Group.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Define available resources per project</div>
+          <div class="task-body">Be explicit: what TYIF can provide (staff time, access to programs, meeting space, small budget if applicable) and what it cannot (equity, IP ownership, guarantee of outcomes). Projects must work within defined constraints — this tests real-world feasibility.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Build a mentorship/advisory connection</div>
+          <div class="task-body">Each project team should have access to one relevant advisor (internal TYIF staff or a vetted external advisor) who can provide expertise relevant to their domain. This is not coaching — it is a specific knowledge resource the team can consult as needed.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Establish a "lab norm" document</div>
+          <div class="task-body">A short written agreement all participants sign on entering Phase 2: what the lab is, how decisions are made, how learning is shared, confidentiality expectations, and what happens when a pilot closes. Clarity upfront prevents confusion and hurt later.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step-section" id="step-4">
+      <div class="step-eyebrow"><div class="step-num-badge">4</div><span class="step-category">Delivery</span></div>
+      <h2 class="step-title">Run the 8–12 Week Pilot Framework</h2>
+      <p class="step-intro">Every project in Phase 2 follows the same structured pilot arc. The timeline is intentionally short — <strong>long enough to generate real evidence, short enough to maintain discipline</strong>. Projects that need significantly longer are usually not ready for Phase 2.</p>
+
+      <div class="pilot-phases">
+        <div class="pilot-row">
+          <div class="pilot-week"><div class="pilot-week-label">Weeks</div><div class="pilot-week-val">1–2</div></div>
+          <div class="pilot-content">
+            <div class="pilot-phase-title">Define & Align</div>
+            <ul class="pilot-items">
+              <li>Finalise and sign the Pilot Brief</li>
+              <li>Agree success metrics with the Review Group</li>
+              <li>Set the explicit exit date and decision criteria</li>
+              <li>Identify resources, advisors, and access needed</li>
+              <li>Brief all stakeholders involved in the pilot</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pilot-row">
+          <div class="pilot-week"><div class="pilot-week-label">Weeks</div><div class="pilot-week-val">3–6</div></div>
+          <div class="pilot-content">
+            <div class="pilot-phase-title">Build & Test</div>
+            <ul class="pilot-items">
+              <li>Execute the defined test: build the prototype, run the session, survey the cohort, test the service, etc.</li>
+              <li>Document evidence as you go — not retrospectively</li>
+              <li>Fortnightly Coordinator check-ins and written updates</li>
+              <li>Identify and escalate blockers early</li>
+              <li>Mid-point Review Group touchpoint (week 5 or 6)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pilot-row">
+          <div class="pilot-week"><div class="pilot-week-label">Weeks</div><div class="pilot-week-val">7–10</div></div>
+          <div class="pilot-content">
+            <div class="pilot-phase-title">Gather & Synthesise</div>
+            <ul class="pilot-items">
+              <li>Complete the primary test phase</li>
+              <li>Gather qualitative and quantitative data against success metrics</li>
+              <li>Hold structured reflection sessions with the project team</li>
+              <li>Prepare a short end-of-pilot Evidence Report (see Step 7)</li>
+              <li>Identify any new questions raised by the evidence</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pilot-row">
+          <div class="pilot-week"><div class="pilot-week-label">Weeks</div><div class="pilot-week-val">11–12</div></div>
+          <div class="pilot-content">
+            <div class="pilot-phase-title">Review & Decide</div>
+            <ul class="pilot-items">
+              <li>Present Evidence Report to the Review Group</li>
+              <li>Review Group makes a formal exit decision: integrate, close, or advance to Phase 3</li>
+              <li>Communicate decision clearly and promptly to the project team</li>
+              <li>Begin transition activities based on outcome</li>
+              <li>File all learning into TYIF's knowledge base</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">Key Discipline</div>
+        <div class="callout-text">The exit date is fixed. It does not move because a project is "nearly there" or because a team is enthusiastic. If a project is not ready to produce evidence within 12 weeks, the correct decision is to close it, document what was learned, and allow a fresh entry if the team returns with a better-defined question.</div>
+      </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step-section" id="step-5">
+      <div class="step-eyebrow"><div class="step-num-badge">5</div><span class="step-category">Evidence</span></div>
+      <h2 class="step-title">Design Success Metrics for Each Pilot</h2>
+      <p class="step-intro">Success metrics must be defined at the start of the pilot — not assessed at the end. Projects that define their own success criteria after seeing the results are not generating evidence; they are constructing justifications. The Review Group approves metrics at kick-off, before any work begins.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Require each project to propose their own metrics first</div>
+            <div class="substep-text">Before the Review Group sets metrics, the project team proposes what success looks like for them. This reveals how well they understand their own idea. Vague proposals ("we want to see if people like it") are a signal the team needs more Phase 1 development time.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Require two types of metrics: impact and feasibility</div>
+            <div class="substep-text"><strong>Impact metrics:</strong> evidence that the solution addresses the problem (e.g., participant feedback scores, behaviour change indicators, engagement data).<br><br><strong>Feasibility metrics:</strong> evidence that the solution can actually work within TYIF's environment (e.g., delivery cost, staff time required, scalability indicators).</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Add one "killer question" per project</div>
+            <div class="substep-text">Each project should identify the single question that, if answered negatively, should cause the pilot to stop. This is the most important metric. If the answer to the killer question is "no", it does not matter how encouraging the other data looks. This forces intellectual honesty.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- STEP 6 -->
+    <section class="step-section" id="step-6">
+      <div class="step-eyebrow"><div class="step-num-badge">6</div><span class="step-category">Decision</span></div>
+      <h2 class="step-title">Run a Clean Exit Decision Process</h2>
+      <p class="step-intro">The end-of-pilot decision is the most important moment in Phase 2. It must be made clearly, promptly, and based on evidence — not on enthusiasm, relationship, or sunk cost. <strong>Stopping a project should feel like a success, not a failure.</strong></p>
+
+      <div class="task-grid">
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Outcome 1: Integrate into TYIF</div>
+          <div class="task-body">The pilot has demonstrated clear value and the solution fits naturally within TYIF's existing programs or operations. The Review Group approves integration, assigns ownership to a program team, and removes the project from the lab. Clear, bounded success.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Outcome 2: Close with learning retained</div>
+          <div class="task-body">The pilot did not demonstrate sufficient feasibility or impact to warrant further development within TYIF. The project closes. The Evidence Report is filed. The team receives a genuine, respectful debrief. All learning is retained and may inform future pilots.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Outcome 3: Eligible for Phase 3 assessment</div>
+          <div class="task-body">The pilot has produced clear evidence of real-world value that cannot or should not continue within TYIF. The Review Group formally nominates it for Phase 3 assessment by TCII. This is rare — reserved for the very few ideas that clearly demonstrate independent commercial potential.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title"><div class="task-check" onclick="this.classList.toggle('done')"></div> Document and communicate every decision formally</div>
+          <div class="task-body">Every exit decision must be documented in writing and communicated to the project team with a clear rationale. No ambiguous "we'll revisit this" — each pilot gets a clear, written outcome. This is what makes the system trustworthy over time.</div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <div class="callout-label">Governance Risk</div>
+        <div class="callout-text">The most common failure is allowing projects to remain in Phase 2 indefinitely — becoming "zombie pilots" that consume attention without producing decisions. If a project has not met its exit date criteria, close it. The team can re-enter if they develop a more focused question.</div>
+      </div>
+    </section>
+
+    <!-- STEP 7 -->
+    <section class="step-section" id="step-7">
+      <div class="step-eyebrow"><div class="step-num-badge">7</div><span class="step-category">Knowledge</span></div>
+      <h2 class="step-title">Retain and Use What You Learn</h2>
+      <p class="step-intro">The Innovation Lab generates significant organisational intelligence — about youth needs, program gaps, emerging ideas, and what works in real-world contexts. This learning has value independent of whether any project becomes a venture. It must be deliberately captured and used.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Require an Evidence Report from every pilot</div>
+            <div class="substep-text">2–4 pages. Covers: the question tested, how it was tested, what the evidence showed, what the team learned, and what they would do differently. This is produced by the project team and reviewed by the Coordinator. Filed into a shared TYIF knowledge library regardless of outcome.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Run a "Labs Learning" debrief each half-year</div>
+            <div class="substep-text">Every 6 months, the Review Group and Coordinator hold a 90-minute retrospective on all completed pilots. What patterns emerged? What gaps did pilots expose in current programs? What types of ideas are consistently strong or weak? This feeds directly into TYIF's program development and Phase 1 improvement.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Share anonymised learnings with facilitators and staff</div>
+            <div class="substep-text">Closed pilots should not disappear silently. Share brief summaries (with participant consent) with TYIF's broader facilitator community: "We tested X, here's what we learned." This demonstrates that the system takes ideas seriously even when they don't progress — which strengthens Phase 1 participation.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- STEP 8 -->
+    <section class="step-section" id="step-8">
+      <div class="step-eyebrow"><div class="step-num-badge">8</div><span class="step-category">Advancement</span></div>
+      <h2 class="step-title">Trigger the Phase 3 Pathway Correctly</h2>
+      <p class="step-intro">The transition to Phase 3 is the rarest outcome of the Innovation Lab. It must be treated as an exceptional event — not a default aspiration. Getting this transition wrong has consequences for TYIF's charitable integrity. Getting it right creates a durable, ethical pipeline to independent venture formation.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Confirm all Phase 2 conditions are formally met</div>
+            <div class="substep-text">Before initiating Phase 3 contact, the Review Group formally confirms in writing: Phase 2 is complete, there is documented evidence the project cannot or should not continue within TYIF, and all participants are willing and appropriate to transition from program participants to independent founders.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Initiate a formal TCII referral</div>
+            <div class="substep-text">The Review Group formally refers the project to TCII with the completed Evidence Report and Pilot Brief. TCII then runs its own independent assessment — TYIF's recommendation is not a guarantee of Phase 3 entry. Both organisations assess independently.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Ensure all participants receive independent guidance</div>
+            <div class="substep-text">Before any Phase 3 transition, TYIF must encourage all participants to seek independent legal advice on what it means to become a founder, take equity, and separate from the charity. TYIF should facilitate access to this guidance without pressure or direction about outcomes.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-val">1–2</div><div class="metric-label">Maximum active pilots in the lab at any one time (initial cohort)</div></div>
+        <div class="metric-card"><div class="metric-val">100%</div><div class="metric-label">Pilots receive a formal written exit decision within 2 weeks of completion</div></div>
+        <div class="metric-card"><div class="metric-val">&lt;20%</div><div class="metric-label">Proportion of Phase 2 projects expected to advance to Phase 3 (high selectivity)</div></div>
+      </div>
+    </section>
+
+    <div class="next-phase">
+      <div class="next-text">
+        <div class="label">For the rare project ready to become a venture</div>
+        <h3>Progress to the TCII Venture Pathway →</h3>
+      </div>
+      <a class="next-btn" href="phase-3.html">Phase 3 Setup Guide</a>
+    </div>
+
+  </main>
+</div>
+<script>
+const sections = document.querySelectorAll('.step-section');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.sidebar-nav a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

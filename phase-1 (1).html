@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 1: Idea & Project Space — Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --dark: #1A1A1A;
+    --charcoal: #2D2D2D;
+    --warm-white: #FDFAF6;
+    --border: rgba(26,26,26,0.1);
+    --phase: #5B7FA6;
+    --phase-light: rgba(91,127,166,0.08);
+    --phase-mid: rgba(91,127,166,0.18);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    padding: 16px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(247,243,238,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-back { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; opacity: 0.6; transition: opacity 0.2s; }
+  .nav-back:hover { opacity: 1; }
+  .nav-phase { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--phase); }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; opacity: 0.5; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+
+  /* HERO */
+  .hero {
+    padding: 80px 48px 72px;
+    background: var(--dark);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '01';
+    position: absolute; right: -20px; top: -40px;
+    font-family: 'DM Serif Display', serif; font-size: 320px;
+    color: rgba(91,127,166,0.07); line-height: 1; pointer-events: none; user-select: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--phase); margin-bottom: 20px;
+  }
+  .hero-badge::before { content: ''; display: block; width: 24px; height: 1px; background: var(--phase); }
+  .hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(38px,6vw,72px); line-height: 1.0; color: #F7F3EE; margin-bottom: 24px; max-width: 700px; }
+  .hero-title em { font-style: italic; color: var(--phase); }
+  .hero-subtitle { font-size: 17px; font-weight: 300; line-height: 1.7; color: rgba(247,243,238,0.65); max-width: 560px; margin-bottom: 48px; }
+  .hero-meta { display: flex; gap: 48px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); }
+  .meta-item { }
+  .meta-val { font-family: 'DM Serif Display', serif; font-size: 28px; color: #F7F3EE; }
+  .meta-label { font-size: 12px; font-weight: 300; color: rgba(247,243,238,0.45); margin-top: 4px; }
+
+  /* ECOSYSTEMS STRIP */
+  .ecosystems {
+    background: var(--phase);
+    padding: 40px 48px;
+    display: flex; gap: 0;
+    overflow-x: auto;
+  }
+  .eco-item {
+    flex: 1; min-width: 180px;
+    padding: 0 32px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    color: white;
+  }
+  .eco-item:first-child { padding-left: 0; }
+  .eco-item:last-child { border-right: none; }
+  .eco-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; margin-bottom: 6px; }
+  .eco-name { font-family: 'DM Serif Display', serif; font-size: 18px; line-height: 1.2; }
+
+  /* LAYOUT */
+  .page-body { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+
+  /* SIDEBAR */
+  .sidebar {
+    background: white; border-right: 1px solid var(--border);
+    padding: 48px 32px; position: sticky; top: 57px; height: calc(100vh - 57px);
+    overflow-y: auto;
+  }
+  .sidebar-heading { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--charcoal); opacity: 0.4; margin-bottom: 20px; }
+  .sidebar-nav { list-style: none; }
+  .sidebar-nav li { margin-bottom: 2px; }
+  .sidebar-nav a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px; border-radius: 4px;
+    text-decoration: none; font-size: 13px; font-weight: 400; color: var(--charcoal);
+    transition: background 0.15s, color 0.15s;
+  }
+  .sidebar-nav a:hover { background: var(--phase-light); color: var(--phase); }
+  .sidebar-nav a.active { background: var(--phase-mid); color: var(--phase); font-weight: 500; }
+  .sidebar-nav .step-num { font-size: 11px; opacity: 0.4; width: 18px; flex-shrink: 0; }
+  .sidebar-divider { height: 1px; background: var(--border); margin: 20px 0; }
+  .sidebar-phase-links { margin-top: 8px; }
+  .phase-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: 4px;
+    text-decoration: none; font-size: 12px; font-weight: 400; color: var(--charcoal);
+    opacity: 0.55; transition: opacity 0.2s;
+  }
+  .phase-link:hover { opacity: 1; }
+  .phase-link-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* MAIN CONTENT */
+  .main { padding: 64px 64px 120px; max-width: 900px; }
+
+  /* STEP SECTIONS */
+  .step-section { margin-bottom: 80px; scroll-margin-top: 80px; }
+  .step-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .step-num-badge {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--phase); color: white;
+    font-family: 'DM Serif Display', serif; font-size: 16px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .step-category { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--phase); }
+  .step-title { font-family: 'DM Serif Display', serif; font-size: clamp(22px,2.5vw,32px); line-height: 1.1; margin-bottom: 16px; }
+  .step-intro { font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--charcoal); margin-bottom: 32px; opacity: 0.85; }
+  .step-intro strong { font-weight: 500; color: var(--dark); }
+
+  /* TASK BLOCKS */
+  .task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 32px; }
+  .task-card {
+    background: white; border: 1px solid var(--border);
+    padding: 28px; border-radius: 4px;
+  }
+  .task-card-title { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
+  .task-check { width: 20px; height: 20px; border: 1.5px solid var(--phase); border-radius: 4px; flex-shrink: 0; margin-top: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .task-check.done { background: var(--phase); }
+  .task-check.done::after { content: '✓'; color: white; font-size: 11px; }
+  .task-body { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--charcoal); opacity: 0.8; padding-left: 30px; }
+
+  /* SUBSTEP LIST */
+  .substep-list { list-style: none; margin-bottom: 32px; }
+  .substep-item {
+    display: flex; gap: 20px;
+    padding: 20px 0; border-bottom: 1px solid var(--border);
+  }
+  .substep-item:last-child { border-bottom: none; }
+  .substep-marker {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1.5px solid var(--phase); color: var(--phase);
+    font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .substep-body { }
+  .substep-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .substep-text { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--charcoal); opacity: 0.8; }
+  .substep-text strong { font-weight: 500; color: var(--dark); opacity: 1; }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-left: 3px solid var(--phase); background: var(--phase-light);
+    padding: 20px 24px; border-radius: 0 4px 4px 0; margin-bottom: 24px;
+  }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phase); margin-bottom: 8px; }
+  .callout-text { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--charcoal); }
+  .callout-text strong { font-weight: 500; }
+
+  .callout.warn { border-color: #C05353; background: rgba(192,83,83,0.06); }
+  .callout.warn .callout-label { color: #C05353; }
+
+  /* ROLE TABLE */
+  .role-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+  .role-table th { text-align: left; padding: 10px 16px; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); opacity: 0.4; border-bottom: 1px solid var(--border); }
+  .role-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; font-weight: 300; line-height: 1.5; color: var(--charcoal); }
+  .role-table tr:last-child td { border-bottom: none; }
+  .role-name { font-weight: 500; color: var(--dark); }
+
+  /* TIMELINE */
+  .timeline { margin-bottom: 32px; }
+  .timeline-row { display: flex; gap: 16px; margin-bottom: 2px; }
+  .tl-week {
+    width: 80px; flex-shrink: 0;
+    background: var(--phase); color: white;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    padding: 12px 16px; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+  }
+  .tl-content {
+    flex: 1; background: white; border: 1px solid var(--border);
+    padding: 14px 20px; border-radius: 4px;
+  }
+  .tl-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .tl-text { font-size: 13px; font-weight: 300; line-height: 1.5; color: var(--charcoal); opacity: 0.75; }
+
+  /* METRICS */
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 32px; }
+  .metric-card { background: white; border: 1px solid var(--border); padding: 24px; border-radius: 4px; }
+  .metric-val { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--phase); line-height: 1; margin-bottom: 8px; }
+  .metric-label { font-size: 13px; font-weight: 400; color: var(--charcoal); opacity: 0.7; line-height: 1.4; }
+
+  /* NEXT PHASE */
+  .next-phase {
+    background: var(--dark); color: #F7F3EE;
+    padding: 48px; border-radius: 4px; margin-top: 80px;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+  }
+  .next-text .label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.4; margin-bottom: 8px; }
+  .next-text h3 { font-family: 'DM Serif Display', serif; font-size: 28px; color: #F7F3EE; }
+  .next-btn {
+    background: var(--phase); color: white;
+    padding: 14px 28px; border-radius: 4px;
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    white-space: nowrap; transition: opacity 0.2s;
+  }
+  .next-btn:hover { opacity: 0.85; }
+
+  @media(max-width:900px){
+    nav { padding: 14px 20px; }
+    .hero { padding: 60px 24px 48px; }
+    .ecosystems { padding: 32px 24px; }
+    .page-body { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .main { padding: 40px 24px 80px; }
+    .task-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .next-phase { flex-direction: column; padding: 32px 24px; }
+    .hero-meta { flex-wrap: wrap; gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+    Back to Overview
+  </a>
+  <span class="nav-phase">Phase 1 — Setup Guide</span>
+  <ul class="nav-links">
+    <li><a href="phase-1.html">Phase 1</a></li>
+    <li><a href="phase-2.html">Phase 2</a></li>
+    <li><a href="phase-3.html">Phase 3</a></li>
+    <li><a href="phase-4.html">Phase 4</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Phase 01</div>
+  <h1 class="hero-title">TYIF Idea &<br><em>Project Space</em></h1>
+  <p class="hero-subtitle">The primary engine for capturing youth-led ideas across TYIF's programs, brands, and alumni networks. Inclusive, non-commercial, and structurally embedded — not an add-on.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-val">Weeks 1–12</div><div class="meta-label">Setup & launch window</div></div>
+    <div class="meta-item"><div class="meta-val">4 ecosystems</div><div class="meta-label">Programs, alumni, facilitators, staff</div></div>
+    <div class="meta-item"><div class="meta-val">0 equity</div><div class="meta-label">No commercial obligation at this stage</div></div>
+    <div class="meta-item"><div class="meta-val">Always open</div><div class="meta-label">Ongoing, not time-limited</div></div>
+  </div>
+</section>
+
+<div class="ecosystems">
+  <div class="eco-item"><div class="eco-label">Ecosystem 1</div><div class="eco-name">TYIF Programs & Camps</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 2</div><div class="eco-name">Alumni Network</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 3</div><div class="eco-name">Facilitators & Staff</div></div>
+  <div class="eco-item"><div class="eco-label">Ecosystem 4</div><div class="eco-name">TYIF Leadership & Org</div></div>
+</div>
+
+<div class="page-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <p class="sidebar-heading">Setup Steps</p>
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li><a href="#step-1"><span class="step-num">1</span> Organisational Commitment</a></li>
+      <li><a href="#step-2"><span class="step-num">2</span> Build the Capture System</a></li>
+      <li><a href="#step-3"><span class="step-num">3</span> Facilitator Training</a></li>
+      <li><a href="#step-4"><span class="step-num">4</span> Program Integration</a></li>
+      <li><a href="#step-5"><span class="step-num">5</span> Alumni Network Activation</a></li>
+      <li><a href="#step-6"><span class="step-num">6</span> Review & Feedback Engine</a></li>
+      <li><a href="#step-7"><span class="step-num">7</span> Communication & Visibility</a></li>
+      <li><a href="#step-8"><span class="step-num">8</span> Measurement & Reporting</a></li>
+    </ul>
+    <div class="sidebar-divider"></div>
+    <p class="sidebar-heading">All Phases</p>
+    <div class="sidebar-phase-links">
+      <a class="phase-link" href="phase-1.html"><span class="phase-link-dot" style="background:#5B7FA6"></span> Phase 1 — Idea Space</a>
+      <a class="phase-link" href="phase-2.html"><span class="phase-link-dot" style="background:#6B8C6B"></span> Phase 2 — Innovation Lab</a>
+      <a class="phase-link" href="phase-3.html"><span class="phase-link-dot" style="background:#C9A84C"></span> Phase 3 — Venture Pathway</a>
+      <a class="phase-link" href="phase-4.html"><span class="phase-link-dot" style="background:#8B5E3C"></span> Phase 4 — Scale & Exit</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- STEP 1 -->
+    <section class="step-section" id="step-1">
+      <div class="step-eyebrow">
+        <div class="step-num-badge">1</div>
+        <span class="step-category">Foundation</span>
+      </div>
+      <h2 class="step-title">Secure Organisational Commitment</h2>
+      <p class="step-intro">Phase 1 will fail if it is treated as a side project. TYIF leadership must formally endorse the Idea & Project Space as a <strong>core organisational capability</strong> — not a pilot program, not a single team's initiative. This step must come first, before any tools are built or communications sent.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Executive decision and mandate</div>
+            <div class="substep-text">TYIF's CEO and senior leadership formally endorse the Idea & Project Space. This should be <strong>documented in writing</strong> — a board or leadership team resolution, a strategy paper, or a formal memo. Without this, the program has no authority to draw on organisational resources or ask facilitators to change their delivery.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Appoint an Internal Program Lead</div>
+            <div class="substep-text">Name one person responsible for Phase 1 operations. This role manages idea intake, coordinates facilitator training, maintains the review cycle, and reports progress to leadership. Without a named owner, accountability diffuses. This person does not need to be full-time on Phase 1, but it must be a <strong>formal part of their role description</strong>.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Define resourcing and budget</div>
+            <div class="substep-text">Identify minimum viable resourcing: time allocation for the Program Lead, basic tools (see Step 2), and facilitator training hours. Even a modest dedicated budget signals seriousness. Lack of any allocated resource communicates the opposite.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Align brand leads across TYIF</div>
+            <div class="substep-text">Schedule a short briefing with each TYIF brand and program lead. Explain what Phase 1 is, what it is not, what will be asked of their teams, and how it fits within their existing program structure. This builds alignment before anything is communicated to participants.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-label">Key Principle</div>
+        <div class="callout-text">Phase 1 must be treated as infrastructure — like a CRM, an alumni database, or a staff training pathway. It requires consistent investment and stewardship, not a one-time launch.</div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step-section" id="step-2">
+      <div class="step-eyebrow">
+        <div class="step-num-badge">2</div>
+        <span class="step-category">Infrastructure</span>
+      </div>
+      <h2 class="step-title">Build the Idea Capture System</h2>
+      <p class="step-intro">The capture system is the backbone of Phase 1. It needs to be simple enough that a 16-year-old can use it during or after a program, and structured enough that ideas can be tracked, categorised, and responded to at scale. <strong>Start simple — a well-designed form is enough to begin.</strong></p>
+
+      <div class="task-grid">
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Design the idea submission form
+          </div>
+          <div class="task-body">Keep it under 8 fields. Include: name (optional), program/brand, idea summary (2–3 sentences), problem being solved, who it affects, and whether they want to develop it further. Add one open field for anything else. Avoid jargon.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Choose and configure a platform
+          </div>
+          <div class="task-body">Options: Airtable (best for tracking + review), Notion, Google Forms + Sheets, or a simple web form linked to a shared inbox. Choose based on what TYIF staff already use — adoption is more important than features at this stage.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Build an idea categorisation system
+          </div>
+          <div class="task-body">Create 4–5 simple categories for incoming ideas: (1) Program improvement, (2) New community initiative, (3) Social enterprise concept, (4) For-profit concept, (5) Other / not sure. This enables routing and reporting without over-engineering the intake stage.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Set up acknowledgement and tracking
+          </div>
+          <div class="task-body">Every submission must receive a response — even a simple automated confirmation. Build a tracking spreadsheet or Airtable view with: submission date, category, status (received / under review / responded / actioned), and assigned reviewer. Unacknowledged ideas destroy trust.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Create a simple QR / short link
+          </div>
+          <div class="task-body">Generate a short, memorable URL (e.g. ideas.tyif.org.au or a Bitly link) and a QR code. These can be printed on program materials, handouts, and displayed at camps. Make submission frictionless.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Test with a small group first
+          </div>
+          <div class="task-body">Run a soft launch with one program cohort — 20–30 participants. Test the form, the acknowledgement flow, the review process, and the categorisation. Fix friction points before rolling out across all brands.</div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <div class="callout-label">Avoid This</div>
+        <div class="callout-text">Do not over-engineer the system before you understand submission volume. A complex multi-stage tool used by nobody is worse than a basic form that 500 young people actually engage with.</div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step-section" id="step-3">
+      <div class="step-eyebrow">
+        <div class="step-num-badge">3</div>
+        <span class="step-category">People</span>
+      </div>
+      <h2 class="step-title">Train Facilitators as the Front Line</h2>
+      <p class="step-intro">Facilitators are the most important lever in Phase 1. They are the humans young people trust, and they are the ones who will — or won't — surface the Idea & Project Space during a program. Their understanding, tone, and confidence directly shapes participation rates. <strong>Facilitator training is non-negotiable.</strong></p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Create a facilitator briefing pack</div>
+            <div class="substep-text">Produce a 1–2 page document for every facilitator that explains: what Phase 1 is, what it is not (no pressure, no equity, no obligation), how to introduce it in a session, what language to use, and how a participant submits an idea. Include the QR code and a sample script for introducing the concept.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Run facilitator training sessions (30–45 min)</div>
+            <div class="substep-text">Do this per-brand or per-cohort. Cover: the purpose and values behind Phase 1, how to have a natural conversation about ideas without creating unrealistic expectations, how to handle questions about what happens to an idea, and what <strong>not</strong> to say (especially around commercialisation or ownership).</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Build a standard program moment for idea capture</div>
+            <div class="substep-text">Work with each brand's program designers to embed a dedicated moment in the program flow where ideas are invited. This could be a reflection exercise, a closing activity, or a challenge prompt. It should feel <strong>organic to the program</strong>, not like a separate form-filling exercise tagged on at the end.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Equip facilitators to follow up individually</div>
+            <div class="substep-text">When a facilitator identifies a participant with a particularly compelling or well-developed idea, they should be empowered to have a brief 1:1 conversation and personally encourage submission. Give facilitators a short follow-up script and a direct escalation contact (the Program Lead).</div>
+          </div>
+        </li>
+      </ul>
+
+      <table class="role-table">
+        <thead>
+          <tr><th>Role</th><th>Responsibility</th><th>Time required</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="role-name">Program Lead</td><td>Designs facilitator training, creates briefing pack, manages escalations</td><td>~4–6 hrs setup, ongoing light-touch</td></tr>
+          <tr><td class="role-name">Brand / Program Manager</td><td>Approves integration into program design, briefs their facilitators</td><td>~2 hrs per brand</td></tr>
+          <tr><td class="role-name">Facilitator (each)</td><td>Attends training, introduces Phase 1 during programs, flags standout ideas</td><td>45 min training + embedded into sessions</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step-section" id="step-4">
+      <div class="step-eyebrow">
+        <div class="step-num-badge">4</div>
+        <span class="step-category">Program Ecosystem</span>
+      </div>
+      <h2 class="step-title">Embed Across All TYIF Programs</h2>
+      <p class="step-intro">Phase 1 must live inside existing programs — not alongside them. It should feel like a natural extension of what TYIF already does: inspiring, empowering, and encouraging young people to think about impact. The goal is seamless embedding, not extra workload.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Map every current TYIF program and touchpoint</div>
+            <div class="substep-text">Create a simple list of every program, camp, event, and cohort run across all TYIF brands. For each, note: program length, participant age range, existing reflection or creative activities, and the facilitator responsible. This becomes the integration roadmap.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Design a per-program integration approach</div>
+            <div class="substep-text">Each program is different. A 2-day camp needs a different approach than a 6-week youth leadership course. For shorter programs: embed a single 10-minute "What's Your Idea?" reflection near the close. For longer programs: introduce Phase 1 early, return to it mid-program, and close with structured idea submission.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Add Phase 1 materials to all program collateral</div>
+            <div class="substep-text">Every participant pack, workbook, closing handout, or digital resource should include a brief mention of the Idea & Project Space and the submission link/QR. Keep it simple: one paragraph, the link, and one line on what happens next.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Create a dedicated "Idea Space" session template</div>
+            <div class="substep-text">Build a reusable 15–20 minute facilitated session that any facilitator can run — with or without customisation. Include: an opening prompt ("What's a problem you keep thinking about?"), a pair-share activity, and a simple submission walkthrough. This becomes the default module used when time allows.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step-section" id="step-5">
+      <div class="step-eyebrow">
+        <div class="step-num-badge">5</div>
+        <span class="step-category">Alumni Ecosystem</span>
+      </div>
+      <h2 class="step-title">Activate the Alumni Network</h2>
+      <p class="step-intro">Alumni are a significant and underutilised asset. They have already been through TYIF programs, they have had time to reflect, and many will have developed or strengthened ideas since finishing. <strong>The alumni network extends Phase 1's reach far beyond active programs.</strong></p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Segment the alumni database by program and year</div>
+            <div class="substep-text">Work with TYIF's existing alumni data to understand the size, recency, and program-of-origin of the alumni community. Segment into: recent alumni (within 2 years), older alumni, and highly engaged alumni. This allows targeted, relevant outreach rather than a single mass communication.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Write and send an alumni launch communication</div>
+            <div class="substep-text">Craft an email or message that explains what the Idea & Project Space is, why it exists, and how to submit an idea. Keep it personal in tone — this is not a newsletter, it is an invitation. Include a clear, honest explanation of what happens to ideas: they are reviewed, responded to, and some are developed further. No hype, no overpromising.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Identify and brief Alumni Champions</div>
+            <div class="substep-text">Select 5–10 engaged alumni across different programs and regions to act as informal champions. These are people already connected to TYIF who can organically spread awareness, answer questions from peers, and model what engagement looks like. Brief them individually, not in a group mass email.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Embed Phase 1 in all future alumni touchpoints</div>
+            <div class="substep-text">Any existing alumni events, newsletters, catch-ups, or digital communities (Facebook groups, LinkedIn pages, Discord) should include a standing mention of the Idea Space. Make it part of TYIF's alumni identity — not a one-off campaign.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- STEP 6 -->
+    <section class="step-section" id="step-6">
+      <div class="step-eyebrow">
+        <div class="step-num-badge">6</div>
+        <span class="step-category">Operations</span>
+      </div>
+      <h2 class="step-title">Build the Review & Feedback Engine</h2>
+      <p class="step-intro">The review and feedback process is what makes Phase 1 credible. If ideas go in and nothing comes back, trust collapses fast. <strong>Every submitted idea must receive a response.</strong> The quality of that response matters as much as the speed.</p>
+
+      <ul class="substep-list">
+        <li class="substep-item">
+          <div class="substep-marker">A</div>
+          <div class="substep-body">
+            <div class="substep-title">Set a response SLA (service level agreement)</div>
+            <div class="substep-text">Commit to a maximum response time for every idea — ideally <strong>within 5 business days</strong>. This does not need to be a detailed assessment; it can be a genuine acknowledgement and a short note on what happens next. What matters is that it happens consistently.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">B</div>
+          <div class="substep-body">
+            <div class="substep-title">Create a tiered response framework</div>
+            <div class="substep-text">Tier 1 — acknowledge and encourage: most ideas receive this. A warm, personal response that validates the thinking and encourages continued development. Tier 2 — invite to develop: ideas showing early promise are invited to flesh out their concept further with a simple follow-up template. Tier 3 — escalate for Phase 2 consideration: rare ideas that clearly demonstrate readiness.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">C</div>
+          <div class="substep-body">
+            <div class="substep-title">Run a monthly idea review meeting</div>
+            <div class="substep-text">The Program Lead and one or two staff members review all submissions monthly. This takes 30–45 minutes. The output: categorised ideas, updated statuses, any Tier 2 or Tier 3 candidates identified, and metrics updated. This keeps the pipeline moving without requiring real-time review of every idea.</div>
+          </div>
+        </li>
+        <li class="substep-item">
+          <div class="substep-marker">D</div>
+          <div class="substep-body">
+            <div class="substep-title">Close the loop on visible outcomes</div>
+            <div class="substep-text">When an idea contributes to a program change, sparks a new initiative, or informs an organisational decision — communicate this. A brief mention in an alumni newsletter, a facilitator shout-out, or a direct message to the submitter: <strong>"Your idea led to X."</strong> This is the most powerful signal that Phase 1 is real.</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-label">Critical Insight</div>
+        <div class="callout-text">Young people do not need to see their idea become a venture to feel valued. Seeing a program activity tweaked, a new peer connection formed, or a question added to a camp program is enough to build lasting trust in the space.</div>
+      </div>
+    </section>
+
+    <!-- STEP 7 -->
+    <section class="step-section" id="step-7">
+      <div class="step-eyebrow">
+        <div class="step-num-badge">7</div>
+        <span class="step-category">Communication</span>
+      </div>
+      <h2 class="step-title">Communicate with Clarity and Consistency</h2>
+      <p class="step-intro">How Phase 1 is described matters enormously. The wrong framing — even a single word — can create false expectations about commercialisation, ownership, or outcomes. Every communication should be honest, warm, and expectation-appropriate.</p>
+
+      <div class="task-grid">
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Define approved language and phrases
+          </div>
+          <div class="task-body">Create a short style guide for anyone communicating about Phase 1. Include: what to say, what not to say, and example sentences. Share with all facilitators, brand managers, and comms staff before launch.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Create a simple FAQ for participants
+          </div>
+          <div class="task-body">Answer the 6–8 most common questions upfront: Who sees my idea? What happens to it? Do I own it? Will you use it? Will I get paid? Can I develop it myself? Post this at the submission link.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Produce a launch moment within TYIF
+          </div>
+          <div class="task-body">Don't just roll out quietly — create an internal launch moment with staff and facilitators first. A short briefing, an email from the CEO, or a team Slack post. Internal belief and buy-in is a prerequisite for external credibility.</div>
+        </div>
+        <div class="task-card">
+          <div class="task-card-title">
+            <div class="task-check" onclick="this.classList.toggle('done')"></div>
+            Share early wins as case studies
+          </div>
+          <div class="task-body">When the first idea leads to a visible outcome — document it briefly. A two-paragraph story: what was the idea, who submitted it, what changed as a result. Use this in facilitator briefings and alumni comms to make Phase 1 feel real.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 8 -->
+    <section class="step-section" id="step-8">
+      <div class="step-eyebrow">
+        <div class="step-num-badge">8</div>
+        <span class="step-category">Measurement</span>
+      </div>
+      <h2 class="step-title">Measure What Matters</h2>
+      <p class="step-intro">Phase 1 does not need to produce ventures to be successful. Its success metrics are about engagement, quality of ideas, responsiveness, and the degree to which young people invest sustained effort — not commercial outcomes.</p>
+
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-val">≥5%</div><div class="metric-label">Idea submission rate per program cohort (target by Month 6)</div></div>
+        <div class="metric-card"><div class="metric-val">100%</div><div class="metric-label">Ideas acknowledged within 5 business days</div></div>
+        <div class="metric-card"><div class="metric-val">Monthly</div><div class="metric-label">Cadence of review meetings and metric reporting</div></div>
+        <div class="metric-card"><div class="metric-val">&gt;0</div><div class="metric-label">Visible program improvements traceable to submitted ideas per quarter</div></div>
+        <div class="metric-card"><div class="metric-val">Tracked</div><div class="metric-label">Number of Tier 2 (develop further) conversations initiated</div></div>
+        <div class="metric-card"><div class="metric-val">Tracked</div><div class="metric-label">Phase 2 candidates identified per 6-month period</div></div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">Report to leadership quarterly</div>
+        <div class="callout-text">Produce a simple 1-page quarterly report: total submissions, response rate, category breakdown, visible outcomes, and any Phase 2 candidates. This keeps leadership informed and maintains the organisational mandate for the program.</div>
+      </div>
+
+      <!-- LAUNCH TIMELINE -->
+      <h3 style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:24px;margin-top:40px;">Launch Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-row">
+          <div class="tl-week">Weeks 1–2</div>
+          <div class="tl-content"><div class="tl-title">Secure mandate & appoint Program Lead</div><div class="tl-text">Leadership endorsement, role definition, and budget allocation. Align brand and program managers.</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-week">Weeks 3–4</div>
+          <div class="tl-content"><div class="tl-title">Build capture system and submission flow</div><div class="tl-text">Form design, platform selection, categorisation system, QR code and short link, acknowledgement automation.</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-week">Weeks 5–6</div>
+          <div class="tl-content"><div class="tl-title">Facilitator training and program integration mapping</div><div class="tl-text">Briefing pack created, training sessions run across brands, program integration points identified and designed.</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-week">Weeks 7–8</div>
+          <div class="tl-content"><div class="tl-title">Soft launch with one program cohort</div><div class="tl-text">Test the full system with 20–30 participants. Review submissions, test the response cycle, identify friction.</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-week">Weeks 9–10</div>
+          <div class="tl-content"><div class="tl-title">Fix, refine, and prepare full launch assets</div><div class="tl-text">Apply learnings from soft launch. Update FAQ, refine facilitator scripts, print materials, launch comms.</div></div>
+        </div>
+        <div class="timeline-row">
+          <div class="tl-week">Weeks 11–12</div>
+          <div class="tl-content"><div class="tl-title">Full launch across programs and alumni network</div><div class="tl-text">Simultaneous internal announcement and alumni communication. All programs running with integrated Phase 1 moments.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT PHASE -->
+    <div class="next-phase">
+      <div class="next-text">
+        <div class="label">When Phase 1 is working</div>
+        <h3>Progress to the Innovation Lab →</h3>
+      </div>
+      <a class="next-btn" href="phase-2.html">Phase 2 Setup Guide</a>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// Sidebar active state on scroll
+const sections = document.querySelectorAll('.step-section');
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const id = e.target.id;
+      const link = document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
